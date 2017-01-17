@@ -1,6 +1,17 @@
 import java.util.ArrayList;
 
-
+/**
+ * The <i>SnakeRoot</i> class is an abstract class that users can extend to make
+ * snakes that compete online.  It includes basic functions that most snakes
+ * need to stay alive, find food, track other players, etc. <p>
+ * <b>NOTE:</b> modifying this class in any way does not affect the overall
+ * outcome of the game.  All of the information regarding games, snakes
+ * and arenas is contained in the main server.  For your benefit, 
+ * please do not modify this class or any class contained in this repository
+ * unless you know what you're doing.
+ * @author Micah Mundy
+ *
+ */
 public abstract class SnakeRoot {
 	private boolean dead = false;
 	protected static final int UP = 0, RIGHT = 1, DOWN = 2, LEFT = 3, DEAD = 4;
@@ -8,18 +19,21 @@ public abstract class SnakeRoot {
 	int steps = 0;	
 	private ArrayList<LocI> segs = new ArrayList<LocI>();
 	private int id = -1;
+	public SnakeRoot(){};
 	/**
 	 * The constructor for a snake
-	 * @param x - the x-position of the snake
-	 * @param y - the y-position of the snake
-	 * @param segSize - the number of segments initially on the snake
+	 * @param location - the initial location of the 
+	 * @param numSegs - the number of segments initially on the snake
 	 */
-	public SnakeRoot(){};
 	public SnakeRoot(LocI location, int numSegs) {
 		for(int i = 0; i < numSegs; i ++){
 			segs.add(location.clone());
 		}
 	}
+	/**
+	 * The most commonly used constructor for snakes
+	 * @param locations - the initial locations for all of the snake segments
+	 */
 	public void init(LocI[] locations){
 		for(LocI loc: locations){
 			segs.add(loc);
@@ -72,9 +86,10 @@ public abstract class SnakeRoot {
 			else if(dir == UP) segs.get(0).translate(0, -1);
 			else if(dir == RIGHT) segs.get(0).translate(1, 0);
 			else if(dir == LEFT) segs.get(0).translate(-1, 0);
+			//If the snake 
 			return dir;
 		}
-		 
+
 		return DEAD;
 	}
 	/**
@@ -185,7 +200,7 @@ public abstract class SnakeRoot {
 	 */
 	final protected boolean isWall(int x, int y) {
 		if(isInBounds(x,y))
-		return getStatusAtLocation(x, y) == WALL;
+			return getStatusAtLocation(x, y) == WALL;
 		else return false;
 	}
 	/**
@@ -194,7 +209,7 @@ public abstract class SnakeRoot {
 	 */
 	final protected boolean isWall(LocI l) {
 		if(isInBounds(l))
-		return isWall(l.getX(),l.getY());
+			return isWall(l.getX(),l.getY());
 		else return false;
 	}
 	/**
@@ -204,7 +219,7 @@ public abstract class SnakeRoot {
 	 */
 	final protected boolean isFruit(int x, int y) {
 		if(isInBounds(x,y))
-		return getStatusAtLocation(x, y) == FRUIT;
+			return getStatusAtLocation(x, y) == FRUIT;
 		else return false;
 	}
 	/**
@@ -213,7 +228,7 @@ public abstract class SnakeRoot {
 	 */
 	final protected boolean isFruit(LocI l) {
 		if(isInBounds(l))
-		return isFruit(l.getX(),l.getY());
+			return isFruit(l.getX(),l.getY());
 		else return false;
 	}
 	/**
@@ -303,5 +318,4 @@ public abstract class SnakeRoot {
 		}
 		return locations;
 	}
-
 }

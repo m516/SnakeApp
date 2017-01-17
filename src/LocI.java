@@ -1,5 +1,9 @@
-
-public class LocI{ //Location in the form of a pair of integers
+/**
+ * A LocI is a set of integers that serve as a location in two-dimensional space.
+ * @author Micah Mundy
+ *
+ */
+public class LocI{
 	private int x;
 	private int y;
 	/**
