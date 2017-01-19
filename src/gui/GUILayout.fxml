@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Light.Distant?>
+<?import javafx.scene.effect.Lighting?>
+<?import javafx.scene.effect.Reflection?>
+<?import javafx.scene.effect.Shadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="windowPane" maxHeight="512.0" maxWidth="640.0" minHeight="384.0" minWidth="384.0" prefHeight="512.0" prefWidth="640.0" scaleShape="false" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.GUIController">
+   <children>
+      <AnchorPane fx:id="arenaPane" minHeight="384.0" minWidth="384.0" prefHeight="512.0" prefWidth="384.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="256.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Canvas fx:id="arena" height="384.0" width="384.0" AnchorPane.bottomAnchor="256.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <Canvas fx:id="arenaInfo" height="128.0" layoutY="384.0" width="384.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="384.0" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="infoPane" layoutX="396.0" prefHeight="512.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <Label fx:id="textName" contentDisplay="CENTER" graphicTextGap="0.0" prefHeight="36.0" prefWidth="256.0" text="Snake Name" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <font>
+                  <Font name="Eurostile Bold" size="32.0" />
+               </font>
+               <effect>
+                  <Reflection fraction="0.53" topOffset="-10.0" topOpacity="1.0" />
+               </effect>
+               <textFill>
+                  <LinearGradient cycleMethod="REFLECT" endX="0.5095238095238095" endY="1.0" startX="0.5285714285714286">
+                     <stops>
+                        <Stop color="#616b75" />
+                        <Stop color="#0d0c11" offset="0.9923371647509578" />
+                        <Stop color="#0d0c11" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </textFill>
+            </Label>
+            <LineChart fx:id="statusGraph" layoutX="42.0" layoutY="46.0" prefHeight="196.0" prefWidth="128.0" AnchorPane.leftAnchor="42.0" AnchorPane.topAnchor="46.0">
+              <xAxis>
+                <CategoryAxis side="BOTTOM" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis side="LEFT" tickLabelRotation="-14.0" />
+              </yAxis>
+            </LineChart>
+            <Label fx:id="textWins" layoutY="65.0" prefHeight="17.0" prefWidth="74.0" text="Wins: 1" AnchorPane.leftAnchor="0.0">
+               <font>
+                  <Font name="Eurostile Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="textLosses" layoutY="82.0" prefHeight="17.0" prefWidth="74.0" text="Losses: 1" AnchorPane.leftAnchor="0.0" />
+            <Label fx:id="textStatus" layoutY="135.0" prefHeight="17.0" prefWidth="74.0" text="Top 15%" AnchorPane.leftAnchor="0.0">
+               <font>
+                  <Font name="Eurostile Bold" size="16.0" />
+               </font>
+            </Label>
+            <ProgressBar fx:id="progressServer" layoutX="12.0" layoutY="489.0" prefWidth="200.0" progress="0.5" AnchorPane.leftAnchor="12.0" />
+            <Button fx:id="buttonServer" layoutX="177.0" layoutY="460.0" mnemonicParsing="false" onAction="#buttonGoPressed" prefHeight="24.0" prefWidth="35.0" text="Go!" AnchorPane.leftAnchor="177.0" />
+            <TableView fx:id="listSnakes" editable="true" layoutX="28.0" layoutY="241.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.leftAnchor="28.0">
+              <columns>
+                <TableColumn fx:id="mySnakes" prefWidth="199.0" text="My snakes" />
+              </columns>
+            </TableView>
+            <TextField fx:id="textfieldServer" layoutX="14.0" layoutY="460.0" onAction="#serverAddressEntered" prefHeight="25.0" prefWidth="163.0" promptText="Go to server" text="127.0.0.1" />
+         </children>
+      </AnchorPane>
+   </children>
+   <effect>
+      <Lighting diffuseConstant="1.95">
+         <bumpInput>
+            <Shadow />
+         </bumpInput>
+         <light>
+            <Light.Distant />
+         </light>
+      </Lighting>
+   </effect>
+</AnchorPane>

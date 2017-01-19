@@ -1,3 +1,4 @@
+package application;
 import java.util.ArrayList;
 
 /**
@@ -12,20 +13,20 @@ import java.util.ArrayList;
  * @author Micah Mundy
  *
  */
-public abstract class SnakeRoot {
+public abstract class Snake {
 	private boolean dead = false;
 	protected static final int UP = 0, RIGHT = 1, DOWN = 2, LEFT = 3, DEAD = 4;
 	protected static final int OUTOFBOUNDS = 0, EMPTY = 1, WALL = 2, FRUIT = 3;
 	int steps = 0;	
 	private ArrayList<LocI> segs = new ArrayList<LocI>();
 	private int id = -1;
-	public SnakeRoot(){};
+	public Snake(){};
 	/**
 	 * The constructor for a snake
 	 * @param location - the initial location of the 
 	 * @param numSegs - the number of segments initially on the snake
 	 */
-	public SnakeRoot(LocI location, int numSegs) {
+	public Snake(LocI location, int numSegs) {
 		for(int i = 0; i < numSegs; i ++){
 			segs.add(location.clone());
 		}
@@ -53,6 +54,10 @@ public abstract class SnakeRoot {
 	 * @return the direction of the snake, programmed by players
 	 */
 	abstract int move();
+	/** 
+	 * @return the name of the snake
+	 */
+	public abstract String getName();
 	/**
 	 * This method updates the snake's position of the <i>move</i> method.
 	 * It should not be called by snakes.
@@ -65,15 +70,15 @@ public abstract class SnakeRoot {
 				dir = move();
 			}
 			catch(Exception e){
-				Application.Console.addText("**********************************");
-				Application.Console.addText("ERROR in snake code:");
-				Application.Console.addText(e.getMessage());
+				AppManager.Console.addText("**********************************");
+				AppManager.Console.addText("ERROR in snake code:");
+				AppManager.Console.addText(e.getMessage());
 				StackTraceElement[] lines = e.getStackTrace();
 				for (StackTraceElement stackTraceElement : lines) {
-					Application.Console.addText(stackTraceElement.toString());
+					AppManager.Console.addText(stackTraceElement.toString());
 				}
-				Application.Console.addText("This snake DIED!!!");
-				Application.Console.addText("**********************************");
+				AppManager.Console.addText("This snake DIED!!!");
+				AppManager.Console.addText("**********************************");
 				die();
 				return DEAD;
 			}
@@ -259,7 +264,7 @@ public abstract class SnakeRoot {
 	 * Once the snake is dead, it will no longer remain in the arena.
 	 */
 	final protected void die() {
-		Application.Console.addText("Oh, No!!!  Your snake died!");
+		AppManager.Console.addText("Oh, No!!!  Your snake died!");
 		dead = true;
 	}
 	/**

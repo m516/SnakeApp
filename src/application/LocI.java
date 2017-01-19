@@ -1,3 +1,4 @@
+package application;
 /**
  * A LocI is a set of integers that serve as a location in two-dimensional space.
  * @author Micah Mundy

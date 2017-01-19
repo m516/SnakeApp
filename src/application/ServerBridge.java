@@ -1,3 +1,4 @@
+package application;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -36,8 +37,8 @@ public class ServerBridge{
 			int r = Integer.parseInt(line);
 			return r;
 		} catch (NumberFormatException | IOException e) {
-			Application.Console.addText("Error parsing this line");
-			Application.Console.addText(line);
+			AppManager.Console.addText("Error parsing this line");
+			AppManager.Console.addText(line);
 			closeSocket();
 			
 		}
@@ -52,34 +53,34 @@ public class ServerBridge{
 			String line;
 			//Connecting to server using a known socket number 
 			//used by the server as a receptor for client applications
-			Application.Console.addText("Attempting to connect to " + portNumber);
+			AppManager.Console.addText("Attempting to connect to " + portNumber);
 			writeToServer("Requesting new port number");
 			//The server will send an open socket number.
 			line = in.readLine();
 			//Closing the connection
-			Application.Console.addText("Closing connection to " + portNumber);
+			AppManager.Console.addText("Closing connection to " + portNumber);
 			closeSocket();
 			//Attempting to reconnect to the server using the new socket number
-			Application.Console.addText("Attempting to connect to " + line);
+			AppManager.Console.addText("Attempting to connect to " + line);
 			portNumber = new Integer(line);
 			//reinitializing the sockets and the print streams
 			echoSocket = new Socket(hostAddress, portNumber);
 			out = new PrintWriter(echoSocket.getOutputStream(), true);
 			in = new BufferedReader(new InputStreamReader(echoSocket.getInputStream()));
 			//Connected! testing connections
-			Application.Console.addText("Connected to " + portNumber);
+			AppManager.Console.addText("Connected to " + portNumber);
 			writeToServer("Requesting test response");
 			line = in.readLine();
 			//Printing the server's response to this successful operation
-			Application.Console.addText("Server: " + line);
+			AppManager.Console.addText("Server: " + line);
 			isLive = true;
 			//Create a scanner for the new stream
 		} 
 		catch (UnknownHostException e) {
-			Application.Console.addText(hostAddress + " does not exist");
+			AppManager.Console.addText(hostAddress + " does not exist");
 		} 
 		catch (IOException e) {
-			Application.Console.addText("Couldn't get I/O for the connection to " + hostAddress + 
+			AppManager.Console.addText("Couldn't get I/O for the connection to " + hostAddress + 
 					", port number " + portNumber);
 		}
 	}
@@ -98,7 +99,7 @@ public class ServerBridge{
 			out.println(s);
 		}
 		catch(Exception e){
-			Application.Console.addText(e.getMessage());
+			AppManager.Console.addText(e.getMessage());
 		}
 	}
 
@@ -108,7 +109,7 @@ public class ServerBridge{
 			String returnString = in.readLine();
 			return returnString;
 		} catch (IOException e) {
-			Application.Console.addText("Error reading a line: " + e.getMessage());
+			AppManager.Console.addText("Error reading a line: " + e.getMessage());
 			isLive = false;
 			return null;
 		}
@@ -119,7 +120,7 @@ public class ServerBridge{
 		try {
 			Thread.sleep(100);
 		} catch (InterruptedException e) {
-			Application.Console.addText("Error waiting: " + e.getMessage());
+			AppManager.Console.addText("Error waiting: " + e.getMessage());
 		}
 	}
 
@@ -128,10 +129,10 @@ public class ServerBridge{
 		isLive = false;
 		try {
 			echoSocket.close();
-			Application.Console.addText("Sucessfully closed");
+			AppManager.Console.addText("Sucessfully closed");
 			return true;
 		} catch (Exception e) {
-			Application.Console.addText("Error closing socket: " + e.getMessage());
+			AppManager.Console.addText("Error closing socket: " + e.getMessage());
 			return false;
 		}
 	}
@@ -165,14 +166,14 @@ public class ServerBridge{
 					case CLOSE:
 						try {
 							echoSocket.close();
-							Application.Console.addText("Connection to server successfully closed!");
+							AppManager.Console.addText("Connection to server successfully closed!");
 						} catch (IOException e) {
-							Application.Console.addText("Error closing socket: " + e.getMessage());
+							AppManager.Console.addText("Error closing socket: " + e.getMessage());
 						}
 						isLive = false;
 						break;
 					case KILL_SNAKE:
-						Application.Console.addText("***Your snake is dead :-(");
+						AppManager.Console.addText("***Your snake is dead :-(");
 						Arena.killSnake();
 					}
 					intList.clear();

@@ -1,4 +1,5 @@
-public class TestSnake extends SnakeRoot {
+package application;
+public class TestSnake extends Snake {
 	int direction = 0;
 	int timer = 0;
 	LocI target=new LocI(1,1);
@@ -61,5 +62,9 @@ public class TestSnake extends SnakeRoot {
 			}
 		}
 		return new LocI(1,1);
+	}
+	@Override
+	public String getName() {
+		return "Super Snake";
 	}
 }

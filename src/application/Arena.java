@@ -1,3 +1,4 @@
+package application;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -29,7 +30,7 @@ public class Arena extends JPanel {
 	public static Arena instance = new Arena();
 	private static Color[] snakeColors;
 	private static Graphics2D graphics;
-	private static SnakeRoot mySnake;
+	private static Snake mySnake;
 	private static Color bkg;
 	private Arena(){
 	}
@@ -57,12 +58,10 @@ public class Arena extends JPanel {
 			snakeColors[i] = Color.getHSBColor((float)i/numSnakes, 1f, 1f);
 		}
 		Dimension d = new Dimension(xSize*8, ySize*8);
-		Application.invalidateFrame();
 		instance.invalidate();
 		instance.setPreferredSize(d);
 		instance.setSize(d);
 		instance.validate();
-		Application.validateFrame();
 	}
 	public static void setBlock(int x, int y, byte type){
 		arena[x][y] = type;
@@ -70,8 +69,11 @@ public class Arena extends JPanel {
 	public static int getBlock(int x, int y){
 		return arena[x][y];
 	}
-	public static void addSnake(SnakeRoot s){
+	public static void addSnake(Snake s){
 		mySnake = s;
+	}
+	public static Snake getSnake(){
+		return mySnake;
 	}
 	public static void killSnake(){
 		mySnake.die();
@@ -135,17 +137,17 @@ public class Arena extends JPanel {
 			case SNAKE_CONFIG:
 				//Get the ID of the snake
 				mySnake.setID(command[0]);
-				Application.Console.addText("ID: "+mySnake.getID());
-				Application.Console.addText("Size: "+(command.length-1)/2);
+				AppManager.Console.addText("ID: "+mySnake.getID());
+				AppManager.Console.addText("Size: "+(command.length-1)/2);
 				LocI[] locations = new LocI[(command.length-1)/2];
 				//TODO this isn't completing the loop
 				for(int i = 1; i < command.length-1; i += 2){
 					locations[(i-1)/2] = new LocI(command[i], command[i+1]);
 				}
 				mySnake.init(locations);
-				Application.Console.addText("********Snake initialized");
+				AppManager.Console.addText("********Snake initialized");
 				for(LocI l: locations){
-					Application.Console.addText(l.toString());
+					AppManager.Console.addText(l.toString());
 				}
 				bkg = snakeColors[mySnake.getID()-1-FRUIT].darker().darker();
 				break;
