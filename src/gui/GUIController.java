@@ -79,6 +79,7 @@ public class GUIController implements Initializable {
 	public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
 		System.out.println("GUIController initialized");
 		textName.setText(Arena.getSnake().getName());
+		
 	}
 	
 	public void setAppManagerInstance(AppManager am){

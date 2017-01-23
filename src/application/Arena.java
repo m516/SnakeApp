@@ -1,11 +1,10 @@
 package application;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import javax.swing.JPanel;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 
-public class Arena extends JPanel {
+public class Arena extends Canvas {
 	private static final long serialVersionUID = 1L;
 	/*
 	 * Arenas are composed of byte arrays which represent what occupies each cell in the array
@@ -29,7 +28,7 @@ public class Arena extends JPanel {
 	private static int xSize, ySize;
 	public static Arena instance = new Arena();
 	private static Color[] snakeColors;
-	private static Graphics2D graphics;
+	private static GraphicsContext graphics;
 	private static Snake mySnake;
 	private static Color bkg;
 	private Arena(){
@@ -55,13 +54,8 @@ public class Arena extends JPanel {
 		}
 		snakeColors = new Color[numSnakes+1];
 		for(int i = 0; i <= numSnakes; i ++){
-			snakeColors[i] = Color.getHSBColor((float)i/numSnakes, 1f, 1f);
+			snakeColors[i] = Color.hsb((float)i/numSnakes, 1f, 1f);
 		}
-		Dimension d = new Dimension(xSize*8, ySize*8);
-		instance.invalidate();
-		instance.setPreferredSize(d);
-		instance.setSize(d);
-		instance.validate();
 	}
 	public static void setBlock(int x, int y, byte type){
 		arena[x][y] = type;
@@ -81,13 +75,11 @@ public class Arena extends JPanel {
 	public static String move(){
 		return "" + mySnake.update();
 	}
-
-	@Override
-	public void paint(Graphics g){
-		graphics = (Graphics2D) g;
+	
+	public void repaint(){
 		for(int i = 0; i < arena.length; i ++){
 			byte[] column = arena[i];
-			Color c;
+			Paint c;
 			for (int j = 0; j < column.length; j++) {
 				byte cell = arena[i][j];
 				switch(cell){
@@ -97,7 +89,7 @@ public class Arena extends JPanel {
 					else c = bkg;
 					break;
 				case WALL:
-					c  = Color.LIGHT_GRAY;
+					c  = Color.LIGHTGRAY;
 					break;
 				case FRUIT: 
 					c = Color.MAGENTA;
@@ -106,20 +98,20 @@ public class Arena extends JPanel {
 					if(cell < snakeColors.length+FRUIT && cell > FRUIT){
 						c = snakeColors[cell-FRUIT-1];
 					}
-					else c = Color.DARK_GRAY;
+					else c = Color.DARKGRAY;
 					break;
 				}
-				graphics.setPaint(c);
-				drawCell(graphics, i, j, c);
+				graphics.setFill(c);
+				drawCell(i, j, c);
 			}
 		}
 	}
 
-	void drawCell(Graphics2D g, int x, int y, Color c){
-		int blockWidth = getWidth()/arena.length;
-		int blockHeight = getHeight()/arena[0].length;
-		g.setColor(c);
-		g.fillRect(x*blockWidth, y*blockHeight, blockWidth, blockHeight);
+	void drawCell(int x, int y, Paint c){
+		int blockWidth = (int) (getWidth()/arena.length);
+		int blockHeight = (int) (getHeight()/arena[0].length);
+		graphics.setFill(c);
+		graphics.fillRect(x*blockWidth, y*blockHeight, blockWidth, blockHeight);
 	}
 	public static boolean retrieveCommand(int commandType, Integer[] command){
 		try{

@@ -15,7 +15,7 @@ public class AppManager{
 		//Initialize and configure the snake.
 		AppConfig.addSnakes();
 		//Launch GUI
-		GUI.main(null);
+		GUI.run();
 		socket = new ServerBridge("127.0.0.1", 2060);
 		//Run the socket
 		System.out.println("Connecting to server...");
