@@ -1,10 +1,12 @@
 package application;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.effect.InnerShadow;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.shape.Rectangle;
 
-public class Arena extends Canvas {
+public class Arena{
 	private static final long serialVersionUID = 1L;
 	/*
 	 * Arenas are composed of byte arrays which represent what occupies each cell in the array
@@ -31,6 +33,7 @@ public class Arena extends Canvas {
 	private static GraphicsContext graphics;
 	private static Snake mySnake;
 	private static Color bkg;
+	private static Canvas canvas;
 	private Arena(){
 	}
 	public static int getXSize() {
@@ -54,7 +57,7 @@ public class Arena extends Canvas {
 		}
 		snakeColors = new Color[numSnakes+1];
 		for(int i = 0; i <= numSnakes; i ++){
-			snakeColors[i] = Color.hsb((float)i/numSnakes, 1f, 1f);
+			snakeColors[i] = Color.hsb(360.0*(float)i/numSnakes, 1f, 1f);
 		}
 	}
 	public static void setBlock(int x, int y, byte type){
@@ -62,6 +65,14 @@ public class Arena extends Canvas {
 	}
 	public static int getBlock(int x, int y){
 		return arena[x][y];
+	}
+	public static void setCanvas(Canvas newCanvas){
+		canvas = newCanvas;
+		graphics = canvas.getGraphicsContext2D();
+        InnerShadow is = new InnerShadow();
+        is.setOffsetX(2.0f);
+        is.setOffsetY(2.0f);
+        canvas.setEffect(is);
 	}
 	public static void addSnake(Snake s){
 		mySnake = s;
@@ -77,6 +88,7 @@ public class Arena extends Canvas {
 	}
 	
 	public void repaint(){
+		graphics.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 		for(int i = 0; i < arena.length; i ++){
 			byte[] column = arena[i];
 			Paint c;
@@ -101,16 +113,17 @@ public class Arena extends Canvas {
 					else c = Color.DARKGRAY;
 					break;
 				}
-				graphics.setFill(c);
 				drawCell(i, j, c);
 			}
 		}
 	}
 
 	void drawCell(int x, int y, Paint c){
-		int blockWidth = (int) (getWidth()/arena.length);
-		int blockHeight = (int) (getHeight()/arena[0].length);
+		int blockWidth = (int) (canvas.getWidth()/arena.length);
+		int blockHeight = (int) (canvas.getHeight()/arena[0].length);
 		graphics.setFill(c);
+		//Rectangle rect = new Rectangle(x*blockWidth, y*blockHeight, blockWidth, blockHeight);
+		//TODO add effects using groups: http://docs.oracle.com/javafx/2/get_started/animation.htm
 		graphics.fillRect(x*blockWidth, y*blockHeight, blockWidth, blockHeight);
 	}
 	public static boolean retrieveCommand(int commandType, Integer[] command){

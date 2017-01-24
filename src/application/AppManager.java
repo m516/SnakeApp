@@ -5,18 +5,28 @@ import gui.*;
 import javafx.stage.Stage;
 
 public class AppManager{
+	private static AppManager currentAppManager;
 	private ServerBridge socket;
 	private Map<Class<?>,String> snakeTypes = new HashMap<Class<?>, String>();
 	private static GUIController controller = new GUIController();
-	public AppManager(){
-		controller.setAppManagerInstance(this);
+	private AppManager(){
 	}
 	private void init(){
 		//Initialize and configure the snake.
 		AppConfig.addSnakes();
+		socket = new ServerBridge("127.0.0.1", 2060);
+		//connectToServer();
+	}
+	public static void main(String[] args) {
+		currentAppManager = new AppManager();
+		currentAppManager.init();
 		//Launch GUI
 		GUI.run();
-		socket = new ServerBridge("127.0.0.1", 2060);
+	}
+	public void addSnakeType(Class<?> snakeClass, String snakeName) {
+		snakeTypes.put(snakeClass, snakeName);
+	}
+	public void connectToServer(){
 		//Run the socket
 		System.out.println("Connecting to server...");
 		System.out.println("Socket live before connecting: " + socket.isConnected());
@@ -30,13 +40,10 @@ public class AppManager{
 		socket.listenAndParse();
 		System.out.println("Socket live after listening: " + socket.isConnected());
 	}
-	public static void main(String[] args) {
-		AppManager a = new AppManager();
-		a.init();
+	public static AppManager getCurrentAppManager() {
+		return currentAppManager;
 	}
-	public void addSnakeType(Class<?> snakeClass, String snakeName) {
-		snakeTypes.put(snakeClass, snakeName);
-	}
+
 	//This is a console that was built into previous versions of the application.
 	//Now that this project is in the process of migrating into JavaFX, the console
 	//will not work effectively.  Before un-commenting this class, please BE SURE

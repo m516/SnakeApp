@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class ServerBridge{
 	public static final int END = -2, ARENA_CONFIG = -3, ARENA_DISPLAY = -4, CLOSE = -5, 
-			SNAKE_CONFIG = -6, REQUEST_SNAKE = -7, KILL_SNAKE = -8;;
+			SNAKE_CONFIG = -6, REQUEST_SNAKE = -7, KILL_SNAKE = -8;
 	Socket echoSocket;
 	PrintWriter out;
 	BufferedReader in;
@@ -91,7 +91,7 @@ public class ServerBridge{
 
 	public void listenAndParse(){
 		ScanThread stream = new ScanThread();
-		stream.run();
+		stream.start();
 	}
 
 	private void writeToServer(String s){

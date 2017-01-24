@@ -66,7 +66,8 @@ public class GUIController implements Initializable {
     
     @FXML
     void buttonGoPressed(ActionEvent event) {
-    	
+    	System.out.println("Button pressed");
+		appManager.connectToServer();
     }
 
     @FXML
@@ -78,12 +79,17 @@ public class GUIController implements Initializable {
 	@Override
 	public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
 		System.out.println("GUIController initialized");
+		appManager = AppManager.getCurrentAppManager();
 		textName.setText(Arena.getSnake().getName());
+		Arena.setCanvas(arena);
+		System.out.println("Controller AppManager instance: " + appManager);
+		
 		
 	}
 	
 	public void setAppManagerInstance(AppManager am){
 		appManager = am;
+		System.out.println("Controller AppManager instance: " + appManager);
 	}
 
 }
