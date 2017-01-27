@@ -14,6 +14,7 @@ import java.util.ArrayList;
  *
  */
 public abstract class Snake {
+	private boolean active = false;
 	private boolean dead = false;
 	protected static final int UP = 0, RIGHT = 1, DOWN = 2, LEFT = 3, DEAD = 4;
 	protected static final int OUTOFBOUNDS = 0, EMPTY = 1, WALL = 2, FRUIT = 3;
@@ -63,7 +64,7 @@ public abstract class Snake {
 	 * It should not be called by snakes.
 	 */
 	final public int update() {
-		if(!dead){
+		if(!dead && active){
 			steps++;
 			int dir = DEAD;
 			try{
@@ -273,6 +274,20 @@ public abstract class Snake {
 	 */
 	final public boolean isDead() {
 		return dead;
+	}
+	/**
+	 * 
+	 * @return true if the snake is active in the current arena
+	 */
+	public boolean isActive() {
+		return active;
+	}
+	/**
+	 * 
+	 * @param active - sets the activity of the snake
+	 */
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 	/**
 	 * @return the head of the snake.  

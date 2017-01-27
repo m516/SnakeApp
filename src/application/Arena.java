@@ -1,4 +1,7 @@
+//TODO Add functionality for multiple snakes
 package application;
+import java.util.ArrayList;
+
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -33,7 +36,7 @@ public class Arena{
 	public static Arena instance = new Arena();
 	private static Color[] snakeColors;
 	private static GraphicsContext graphics;
-	private static Snake mySnake;
+	private static ArrayList<Snake> snakes;
 	private static Color bkg;
 	private static Canvas canvas;
 	private Arena(){
@@ -80,16 +83,16 @@ public class Arena{
 		canvas.setEffect(bloom);
 	}
 	public static void addSnake(Snake s){
-		mySnake = s;
+		snakes.add(s);
 	}
-	public static Snake getSnake(){
-		return mySnake;
+	public static Snake getSnake(int index){
+		return snakes.get(index);
 	}
-	public static void killSnake(){
-		mySnake.die();
+	public static void killSnake(int index){
+		snakes.get(index).die();
 	}
-	public static String move(){
-		return "" + mySnake.update();
+	public static String move(int index){
+		return "" + snakes.get(index).update();
 	}
 	
 	public void repaint(){
@@ -157,6 +160,7 @@ public class Arena{
 				break;
 			case SNAKE_CONFIG:
 				//Get the ID of the snake
+				//TODO Add functionality for multiple snakes
 				mySnake.setID(command[0]);
 				AppManager.Console.addText("ID: "+mySnake.getID());
 				AppManager.Console.addText("Size: "+(command.length-1)/2);
