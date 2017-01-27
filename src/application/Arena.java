@@ -1,6 +1,8 @@
 package application;
+import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.effect.Bloom;
 import javafx.scene.effect.InnerShadow;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -73,6 +75,9 @@ public class Arena{
         is.setOffsetX(2.0f);
         is.setOffsetY(2.0f);
         canvas.setEffect(is);
+        Bloom bloom = new Bloom();
+        bloom.setThreshold(1.0);
+		canvas.setEffect(bloom);
 	}
 	public static void addSnake(Snake s){
 		mySnake = s;
@@ -113,7 +118,7 @@ public class Arena{
 					else c = Color.DARKGRAY;
 					break;
 				}
-				drawCell(i, j, c);
+				drawCell(i,j,c);
 			}
 		}
 	}
@@ -121,10 +126,21 @@ public class Arena{
 	void drawCell(int x, int y, Paint c){
 		int blockWidth = (int) (canvas.getWidth()/arena.length);
 		int blockHeight = (int) (canvas.getHeight()/arena[0].length);
-		graphics.setFill(c);
 		//Rectangle rect = new Rectangle(x*blockWidth, y*blockHeight, blockWidth, blockHeight);
 		//TODO add effects using groups: http://docs.oracle.com/javafx/2/get_started/animation.htm
+		graphics.setFill(c);
 		graphics.fillRect(x*blockWidth, y*blockHeight, blockWidth, blockHeight);
+		
+		
+	}
+	@Deprecated
+	Rectangle getCell(int x, int y, Paint p){
+		int blockWidth = (int) (canvas.getWidth()/arena.length);
+		int blockHeight = (int) (canvas.getHeight()/arena[0].length);
+		//TODO add effects using groups: http://docs.oracle.com/javafx/2/get_started/animation.htm
+		Rectangle r = new Rectangle(x*blockWidth, y*blockHeight, blockWidth, blockHeight);
+		r.setFill(p);
+		return r;
 	}
 	public static boolean retrieveCommand(int commandType, Integer[] command){
 		try{

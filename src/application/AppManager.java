@@ -2,19 +2,18 @@ package application;
 import java.util.HashMap;
 import java.util.Map;
 import gui.*;
-import javafx.stage.Stage;
 
 public class AppManager{
 	private static AppManager currentAppManager;
 	private ServerBridge socket;
 	private Map<Class<?>,String> snakeTypes = new HashMap<Class<?>, String>();
-	private static GUIController controller = new GUIController();
+	//private static GUIController controller = new GUIController();
 	private AppManager(){
 	}
 	private void init(){
 		//Initialize and configure the snake.
 		AppConfig.addSnakes();
-		socket = new ServerBridge("127.0.0.1", 2060);
+		socket = new ServerBridge();
 		//connectToServer();
 	}
 	public static void main(String[] args) {
@@ -26,14 +25,16 @@ public class AppManager{
 	public void addSnakeType(Class<?> snakeClass, String snakeName) {
 		snakeTypes.put(snakeClass, snakeName);
 	}
-	public void connectToServer(){
+	public void connectToServer(String serverAddress, int port){
 		//Run the socket
 		System.out.println("Connecting to server...");
 		System.out.println("Socket live before connecting: " + socket.isConnected());
-		socket.connectToServer();
+		socket.connectToServer(serverAddress, port);
 		System.out.println("Socket live after connecting: " + socket.isConnected());
 		//Did the socket connect?
-		if(socket.isConnected())  System.out.println("Connected!");
+		if(socket.isConnected())  {
+			System.out.println("Connected!");
+		}
 		else System.out.println("Failed to Connect!");
 		System.out.println("Socket live before listening: " + socket.isConnected());
 		//Initialize the socket
@@ -48,7 +49,7 @@ public class AppManager{
 	//Now that this project is in the process of migrating into JavaFX, the console
 	//will not work effectively.  Before un-commenting this class, please BE SURE
 	//this will be changed.  Thanks!
-	
+
 	public static class Console{
 		//private static String[] lines = new String[64];
 		//private static int numLines = 0;
@@ -74,9 +75,9 @@ public class AppManager{
 				if(s != null)	strings += s + "\n";
 			}
 			gui.setText(strings);
-			*/
+			 */
 			System.out.println(str);
 		}
 	}
-	
+
 }

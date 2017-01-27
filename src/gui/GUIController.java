@@ -66,8 +66,10 @@ public class GUIController implements Initializable {
     
     @FXML
     void buttonGoPressed(ActionEvent event) {
+		progressServer.setVisible(true);
+		progressServer.setProgress(-1);
     	System.out.println("Button pressed");
-		appManager.connectToServer();
+		appManager.connectToServer(textfieldServer.getText(), 2060);
     }
 
     @FXML
@@ -78,6 +80,8 @@ public class GUIController implements Initializable {
 
 	@Override
 	public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
+		progressServer.setProgress(0);
+		progressServer.setVisible(false);
 		System.out.println("GUIController initialized");
 		appManager = AppManager.getCurrentAppManager();
 		textName.setText(Arena.getSnake().getName());

@@ -16,15 +16,7 @@ public class ServerBridge{
 	String hostAddress = "127.0.0.1";
 	int portNumber =2060;
 	private volatile boolean isLive = true;
-	public static void main(String[] args){
-		ServerBridge b = new ServerBridge();
-		b.connectToServer();
-	}
 	public ServerBridge(){
-	}
-	public ServerBridge(String serverAddress, int port){
-		hostAddress = serverAddress;
-		portNumber = port;
 	}
 	/**
 	 * Retrieves an integer value from an application
@@ -44,7 +36,9 @@ public class ServerBridge{
 		}
 		return -1;
 	}
-	public void connectToServer(){
+	public void connectToServer(String serverAddress, int port){
+		hostAddress = serverAddress;
+		portNumber = port;
 		try{ 
 			//Object definitions
 			echoSocket = new Socket(hostAddress, portNumber);
