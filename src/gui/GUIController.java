@@ -9,7 +9,6 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.chart.LineChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -54,9 +53,6 @@ public class GUIController implements Initializable {
     private Button buttonServer;
 
     @FXML
-    private ProgressBar progressServer;
-
-    @FXML
     private TableView<?> listSnakes;
 
     @FXML
@@ -66,10 +62,8 @@ public class GUIController implements Initializable {
     
     @FXML
     void buttonGoPressed(ActionEvent event) {
-		progressServer.setVisible(true);
-		progressServer.setProgress(-1);
     	System.out.println("Button pressed");
-		appManager.connectToServer(textfieldServer.getText(), 2060);
+		SnakeManager.connectSnakesToServer(textfieldServer.getText(), 2060);
     }
 
     @FXML
@@ -80,11 +74,9 @@ public class GUIController implements Initializable {
 
 	@Override
 	public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
-		progressServer.setProgress(0);
-		progressServer.setVisible(false);
 		System.out.println("GUIController initialized");
 		appManager = AppManager.getCurrentAppManager();
-		textName.setText(Arena.getSnake().getName());
+		textName.setText(SnakeManager.getSnake(0).getName());
 		Arena.setCanvas(arena);
 		System.out.println("Controller AppManager instance: " + appManager);
 		

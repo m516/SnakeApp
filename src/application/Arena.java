@@ -36,7 +36,6 @@ public class Arena{
 	public static Arena instance = new Arena();
 	private static Color[] snakeColors;
 	private static GraphicsContext graphics;
-	private static ArrayList<Snake> snakes;
 	private static Color bkg;
 	private static Canvas canvas;
 	private Arena(){
@@ -82,18 +81,6 @@ public class Arena{
         bloom.setThreshold(1.0);
 		canvas.setEffect(bloom);
 	}
-	public static void addSnake(Snake s){
-		snakes.add(s);
-	}
-	public static Snake getSnake(int index){
-		return snakes.get(index);
-	}
-	public static void killSnake(int index){
-		snakes.get(index).die();
-	}
-	public static String move(int index){
-		return "" + snakes.get(index).update();
-	}
 	
 	public void repaint(){
 		graphics.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
@@ -130,17 +117,13 @@ public class Arena{
 		int blockWidth = (int) (canvas.getWidth()/arena.length);
 		int blockHeight = (int) (canvas.getHeight()/arena[0].length);
 		//Rectangle rect = new Rectangle(x*blockWidth, y*blockHeight, blockWidth, blockHeight);
-		//TODO add effects using groups: http://docs.oracle.com/javafx/2/get_started/animation.htm
 		graphics.setFill(c);
 		graphics.fillRect(x*blockWidth, y*blockHeight, blockWidth, blockHeight);
-		
-		
 	}
 	@Deprecated
 	Rectangle getCell(int x, int y, Paint p){
 		int blockWidth = (int) (canvas.getWidth()/arena.length);
 		int blockHeight = (int) (canvas.getHeight()/arena[0].length);
-		//TODO add effects using groups: http://docs.oracle.com/javafx/2/get_started/animation.htm
 		Rectangle r = new Rectangle(x*blockWidth, y*blockHeight, blockWidth, blockHeight);
 		r.setFill(p);
 		return r;
@@ -160,21 +143,19 @@ public class Arena{
 				break;
 			case SNAKE_CONFIG:
 				//Get the ID of the snake
-				//TODO Add functionality for multiple snakes
-				mySnake.setID(command[0]);
-				AppManager.Console.addText("ID: "+mySnake.getID());
+				snakes.get(0).setID(command[0]);
+				AppManager.Console.addText("ID: "+snakes.get(0).getID());
 				AppManager.Console.addText("Size: "+(command.length-1)/2);
 				LocI[] locations = new LocI[(command.length-1)/2];
-				//TODO this isn't completing the loop
 				for(int i = 1; i < command.length-1; i += 2){
 					locations[(i-1)/2] = new LocI(command[i], command[i+1]);
 				}
-				mySnake.init(locations);
+				snakes.get(0).init(locations);
 				AppManager.Console.addText("********Snake initialized");
 				for(LocI l: locations){
 					AppManager.Console.addText(l.toString());
 				}
-				bkg = snakeColors[mySnake.getID()-1-FRUIT].darker().darker();
+				bkg = snakeColors[snakes.get(0).getID()-1-FRUIT].darker().darker();
 				break;
 			default:
 				return false;

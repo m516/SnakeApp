@@ -69,13 +69,15 @@ public class ServerBridge{
 			AppManager.Console.addText("Server: " + line);
 			isLive = true;
 			//Create a scanner for the new stream
-		} 
+		}
 		catch (UnknownHostException e) {
 			AppManager.Console.addText(hostAddress + " does not exist");
+			isLive = false;
 		} 
 		catch (IOException e) {
 			AppManager.Console.addText("Couldn't get I/O for the connection to " + hostAddress + 
 					", port number " + portNumber);
+			isLive = false;
 		}
 	}
 
@@ -155,7 +157,7 @@ public class ServerBridge{
 						Arena.retrieveCommand(command, intArray);
 						break;
 					case REQUEST_SNAKE:
-						writeToServer(Arena.move());
+						writeToServer(Arena.move(0));
 						break;
 					case CLOSE:
 						try {
@@ -168,7 +170,7 @@ public class ServerBridge{
 						break;
 					case KILL_SNAKE:
 						AppManager.Console.addText("***Your snake is dead :-(");
-						Arena.killSnake();
+						Arena.killSnake(0);
 					}
 					intList.clear();
 				}
