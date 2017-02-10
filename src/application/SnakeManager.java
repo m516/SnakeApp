@@ -5,7 +5,8 @@ import java.util.ArrayList;
 public class SnakeManager {
 	public static ArrayList<Snake> snakes;
 	public static ArrayList<ServerBridge> sockets;
-	public SnakeManager() {
+	private static SnakeManager thisInsance = new SnakeManager();
+	private SnakeManager() {
 		snakes = new ArrayList<Snake>();
 		sockets = new ArrayList<ServerBridge>();
 	}
@@ -13,6 +14,7 @@ public class SnakeManager {
 		snake.setID(id);
 		snakes.add(snake);
 		ServerBridge socket = new ServerBridge();
+		socket.bindToSnake(snake);
 		sockets.add(socket);
 	}
 	public static void addSnake(Snake snake){
@@ -34,4 +36,5 @@ public class SnakeManager {
 	public static String move(int index){
 		return "" + snakes.get(index).update();
 	}
+	
 }

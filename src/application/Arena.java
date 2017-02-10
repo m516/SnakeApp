@@ -1,8 +1,5 @@
 //TODO Add functionality for multiple snakes
 package application;
-import java.util.ArrayList;
-
-import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.Bloom;
@@ -12,7 +9,6 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
 public class Arena{
-	private static final long serialVersionUID = 1L;
 	/*
 	 * Arenas are composed of byte arrays which represent what occupies each cell in the array
 	 * ERR   - Dark grey      - no data retrieved or bad data given for this cell
@@ -34,9 +30,9 @@ public class Arena{
 	private static volatile byte[][] arena;
 	private static int xSize, ySize;
 	public static Arena instance = new Arena();
-	private static Color[] snakeColors;
+	static Color[] snakeColors;
 	private static GraphicsContext graphics;
-	private static Color bkg;
+	static Color bkg;
 	private static Canvas canvas;
 	private Arena(){
 	}
@@ -63,6 +59,7 @@ public class Arena{
 		for(int i = 0; i <= numSnakes; i ++){
 			snakeColors[i] = Color.hsb(360.0*(float)i/numSnakes, 1f, 1f);
 		}
+		bkg = snakeColors[SnakeManager.getSnake(0).getID()-1-Arena.FRUIT].darker().darker();
 	}
 	public static void setBlock(int x, int y, byte type){
 		arena[x][y] = type;
@@ -112,7 +109,7 @@ public class Arena{
 			}
 		}
 	}
-
+	
 	void drawCell(int x, int y, Paint c){
 		int blockWidth = (int) (canvas.getWidth()/arena.length);
 		int blockHeight = (int) (canvas.getHeight()/arena[0].length);
@@ -120,6 +117,14 @@ public class Arena{
 		graphics.setFill(c);
 		graphics.fillRect(x*blockWidth, y*blockHeight, blockWidth, blockHeight);
 	}
+	/**
+	 * Returns a constructed rectangle at a certain position in the arena. 
+	 * This method is depreciated because all of the cells are drawn directly on the Arena canvas
+	 * @param x - the x-coordinate of the cell in the arena
+	 * @param y - the y-coordinate of the cell in the arena
+	 * @param p - the color/gradient/texture of the cell
+	 * @return a rectangle to be displayed on the Arena canvas
+	 */
 	@Deprecated
 	Rectangle getCell(int x, int y, Paint p){
 		int blockWidth = (int) (canvas.getWidth()/arena.length);
@@ -140,22 +145,6 @@ public class Arena{
 					int y = i%ySize, x = i/ySize;
 					setBlock(x,y,(byte)num);
 				}
-				break;
-			case SNAKE_CONFIG:
-				//Get the ID of the snake
-				snakes.get(0).setID(command[0]);
-				AppManager.Console.addText("ID: "+snakes.get(0).getID());
-				AppManager.Console.addText("Size: "+(command.length-1)/2);
-				LocI[] locations = new LocI[(command.length-1)/2];
-				for(int i = 1; i < command.length-1; i += 2){
-					locations[(i-1)/2] = new LocI(command[i], command[i+1]);
-				}
-				snakes.get(0).init(locations);
-				AppManager.Console.addText("********Snake initialized");
-				for(LocI l: locations){
-					AppManager.Console.addText(l.toString());
-				}
-				bkg = snakeColors[snakes.get(0).getID()-1-FRUIT].darker().darker();
 				break;
 			default:
 				return false;

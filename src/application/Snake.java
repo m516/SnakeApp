@@ -71,15 +71,15 @@ public abstract class Snake {
 				dir = move();
 			}
 			catch(Exception e){
-				AppManager.Console.addText("**********************************");
-				AppManager.Console.addText("ERROR in snake code:");
-				AppManager.Console.addText(e.getMessage());
+				Console.addText("**********************************");
+				Console.addText("ERROR in snake code:");
+				Console.addText(e.getMessage());
 				StackTraceElement[] lines = e.getStackTrace();
 				for (StackTraceElement stackTraceElement : lines) {
-					AppManager.Console.addText(stackTraceElement.toString());
+					Console.addText(stackTraceElement.toString());
 				}
-				AppManager.Console.addText("This snake DIED!!!");
-				AppManager.Console.addText("**********************************");
+				Console.addText("This snake DIED!!!");
+				Console.addText("**********************************");
 				die();
 				return DEAD;
 			}
@@ -265,7 +265,7 @@ public abstract class Snake {
 	 * Once the snake is dead, it will no longer remain in the arena.
 	 */
 	final protected void die() {
-		AppManager.Console.addText("Oh, No!!!  Your snake died!");
+		Console.addText("Oh, No!!!  Your snake died!");
 		dead = true;
 	}
 	/**
