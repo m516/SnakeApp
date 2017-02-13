@@ -70,13 +70,6 @@ public class Arena{
 	public static void setCanvas(Canvas newCanvas){
 		canvas = newCanvas;
 		graphics = canvas.getGraphicsContext2D();
-        InnerShadow is = new InnerShadow();
-        is.setOffsetX(2.0f);
-        is.setOffsetY(2.0f);
-        canvas.setEffect(is);
-        Bloom bloom = new Bloom();
-        bloom.setThreshold(1.0);
-		canvas.setEffect(bloom);
 	}
 	
 	public void repaint(){

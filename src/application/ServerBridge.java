@@ -15,8 +15,8 @@ public class ServerBridge{
 	BufferedReader in;
 	String hostAddress = "127.0.0.1";
 	int portNumber =2060;
+	ScanThread stream = new ScanThread();
 	private volatile boolean isLive = false;
-	private volatile Snake snake;
 	/**
 	 * The default constructor for a ServerBridge.
 	 */
@@ -28,7 +28,7 @@ public class ServerBridge{
 	 * @param newSnake - the snake that this socket will control
 	 */
 	public ServerBridge(Snake snake){
-		this.snake = snake;
+		bindToSnake(snake);
 	}
 	/**
 	 * Binds this instance of ServerBridge to a snake.<p>
@@ -36,7 +36,8 @@ public class ServerBridge{
 	 * @param newSnake - the snake that this socket will control
 	 */
 	public void bindToSnake(Snake newSnake){
-		snake = newSnake;
+		stream.snake = newSnake;
+		System.out.println(stream.snake);
 	}
 	/**
 	 * Retrieves an integer value from an application
@@ -111,7 +112,6 @@ public class ServerBridge{
 	 * Listens to the server in a new thread and listens to commands
 	 */
 	private void listenAndParse(){
-		ScanThread stream = new ScanThread();
 		stream.start();
 	}
 
@@ -162,9 +162,10 @@ public class ServerBridge{
 	}
 
 	private class ScanThread extends Thread{
+		private volatile Snake snake;
 		private ScanThread(){
 		}
-		public void run(){
+		public synchronized void run(){
 			ArrayList<Integer> intList = new ArrayList<Integer>();
 			while(isLive){
 				int currentInt = getInt();
