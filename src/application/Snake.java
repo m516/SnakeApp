@@ -92,7 +92,6 @@ public abstract class Snake {
 			else if(dir == UP) segs.get(0).translate(0, -1);
 			else if(dir == RIGHT) segs.get(0).translate(1, 0);
 			else if(dir == LEFT) segs.get(0).translate(-1, 0);
-			//If the snake 
 			return dir;
 		}
 

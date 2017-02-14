@@ -1,9 +1,8 @@
 //TODO Add functionality for multiple snakes
 package application;
+import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.effect.Bloom;
-import javafx.scene.effect.InnerShadow;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
@@ -73,41 +72,45 @@ public class Arena{
 	}
 	
 	public void repaint(){
-		graphics.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-		for(int i = 0; i < arena.length; i ++){
-			byte[] column = arena[i];
-			Paint c;
-			for (int j = 0; j < column.length; j++) {
-				byte cell = arena[i][j];
-				switch(cell){
-				case EMPTY:
-					if(bkg==null)
-					c = Color.BLACK;
-					else c = bkg;
-					break;
-				case WALL:
-					c  = Color.LIGHTGRAY;
-					break;
-				case FRUIT: 
-					c = Color.MAGENTA;
-					break;
-				default:
-					if(cell < snakeColors.length+FRUIT && cell > FRUIT){
-						c = snakeColors[cell-FRUIT-1];
+		Platform.runLater(new Runnable(){
+			@Override public void run(){
+				graphics.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+				for(int i = 0; i < arena.length; i ++){
+					byte[] column = arena[i];
+					Paint c;
+					for (int j = 0; j < column.length; j++) {
+						byte cell = arena[i][j];
+						switch(cell){
+						case EMPTY:
+							if(bkg==null)
+							c = Color.BLACK;
+							else c = bkg;
+							break;
+						case WALL:
+							c  = Color.LIGHTGRAY;
+							break;
+						case FRUIT: 
+							c = Color.MAGENTA;
+							break;
+						default:
+							if(cell < snakeColors.length+FRUIT && cell > FRUIT){
+								c = snakeColors[cell-FRUIT-1];
+							}
+							else c = Color.DARKGRAY;
+							break;
+						}
+						drawCell(i,j,c);
 					}
-					else c = Color.DARKGRAY;
-					break;
 				}
-				drawCell(i,j,c);
 			}
-		}
+		});
 	}
 	
 	void drawCell(int x, int y, Paint c){
 		int blockWidth = (int) (canvas.getWidth()/arena.length);
 		int blockHeight = (int) (canvas.getHeight()/arena[0].length);
 		//Rectangle rect = new Rectangle(x*blockWidth, y*blockHeight, blockWidth, blockHeight);
-		graphics.setFill(c);
+		graphics.setFill(Color.web(c.toString()));
 		graphics.fillRect(x*blockWidth, y*blockHeight, blockWidth, blockHeight);
 	}
 	/**

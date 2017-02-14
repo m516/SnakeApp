@@ -10,6 +10,7 @@ public class TestSnake extends Snake {
 		if(timer <= 0){
 			target = findFruit();
 			timer = target.distanceEstimate(getHead());
+			Console.addText(target.toString());
 		}
 		//Are conditions favorable?
 		boolean isRight 	= target.getX()>getHead().getX() && canGoRight();
