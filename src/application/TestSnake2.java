@@ -1,22 +1,22 @@
 package application;
+
+import java.util.Random;
+
 public class TestSnake2 extends Snake {
 	int direction = 0;
 	int timer = 0;
-	LocI target=new LocI(1,1);
 
 	@Override
 	public int move() {
 		timer--;
 		if(timer <= 0){
-			timer = 2;
-			direction ++;
-			direction %= 4;
-			Console.addText(target.toString());
+			direction = (int)(Math.random()*4);
+			timer = 5;
 		}
 		return direction;
 	}
 	@Override
 	public String getName() {
-		return "Super Snake";
+		return super.toString();
 	}
 }

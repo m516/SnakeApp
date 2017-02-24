@@ -56,9 +56,9 @@ public class Arena{
 		}
 		snakeColors = new Color[numSnakes+1];
 		for(int i = 0; i <= numSnakes; i ++){
-			snakeColors[i] = Color.hsb(360.0*(float)i/numSnakes, 1f, 1f);
+			snakeColors[i] = Color.hsb(360.0*(float)(i/numSnakes), 1f, 1f);
 		}
-		bkg = snakeColors[SnakeManager.getSnake(0).getID()-1-Arena.FRUIT].darker().darker();
+		bkg = snakeColors[SnakeManager.getSnake(0).getID()-1].darker().darker();
 	}
 	public static void setBlock(int x, int y, byte type){
 		arena[x][y] = type;
@@ -70,42 +70,42 @@ public class Arena{
 		canvas = newCanvas;
 		graphics = canvas.getGraphicsContext2D();
 	}
-	
+
 	public void repaint(){
-		Platform.runLater(new Thread(){
-			@Override public void run(){
-				graphics.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-				for(int i = 0; i < arena.length; i ++){
-					byte[] column = arena[i];
-					Paint c;
-					for (int j = 0; j < column.length; j++) {
-						byte cell = arena[i][j];
-						switch(cell){
-						case EMPTY:
-							if(bkg==null)
+		Platform.runLater(() -> {
+			graphics.setFill(Color.BLACK);
+			graphics.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+			for(int i = 0; i < arena.length; i ++){
+				byte[] column = arena[i];
+				Paint c;
+				for (int j = 0; j < column.length; j++) {
+					byte cell = arena[i][j];
+					switch(cell){
+					case EMPTY:
+						if(bkg==null)
 							c = Color.BLACK;
-							else c = bkg;
-							break;
-						case WALL:
-							c  = Color.LIGHTGRAY;
-							break;
-						case FRUIT: 
-							c = Color.MAGENTA;
-							break;
-						default:
-							if(cell < snakeColors.length+FRUIT && cell > FRUIT){
-								c = snakeColors[cell-FRUIT-1];
-							}
-							else c = Color.DARKGRAY;
-							break;
+						else c = bkg;
+						break;
+					case WALL:
+						c  = Color.LIGHTGRAY;
+						break;
+					case FRUIT: 
+						c = Color.MAGENTA;
+						break;
+					default:
+						if(cell < snakeColors.length+FRUIT && cell > FRUIT){
+							c = snakeColors[cell-FRUIT-1];
 						}
-						drawCell(i,j,c);
+						else c = Color.DARKGRAY;
+						break;
 					}
+					drawCell(i,j,c);
 				}
+
 			}
 		});
 	}
-	
+
 	void drawCell(int x, int y, Paint c){
 		int blockWidth = (int) (canvas.getWidth()/arena.length);
 		int blockHeight = (int) (canvas.getHeight()/arena[0].length);
@@ -137,19 +137,21 @@ public class Arena{
 				init(command[0], command[1], command[2]);
 				break;
 			case ARENA_DISPLAY:
-				Console.addText("Arena displayed");
 				for(int i = 0; i < command.length; i ++){
 					int num = command[i];
 					int y = i%ySize, x = i/ySize;
 					setBlock(x,y,(byte)num);
 				}
+				instance.repaint();
 				break;
 			default:
 				return false;
 			}
 		}
-		catch(Exception e){return false;}
-		instance.repaint();
+		catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
 		return true;
 	}
 }

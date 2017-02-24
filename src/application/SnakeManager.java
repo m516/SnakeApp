@@ -32,5 +32,10 @@ public class SnakeManager {
 	public static String move(int index){
 		return "" + snakes.get(index).update();
 	}
+	public static void closeAllBridges(){
+		for(int i = sockets.size()-1; i >= 0; i --){
+			sockets.get(i).closeSocket();
+		}
+	}
 
 }
