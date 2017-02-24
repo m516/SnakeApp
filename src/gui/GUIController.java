@@ -63,7 +63,7 @@ public class GUIController implements Initializable {
     @FXML
     void buttonGoPressed(ActionEvent event) {
     	System.out.println("Button pressed");
-		SnakeManager.connectSnakesToServer(textfieldServer.getText(), 2060);
+		SnakeManager.connectSnakesToServer(textfieldServer.getText(), 6419);
     }
 
     @FXML

@@ -15,7 +15,7 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="windowPane" maxHeight="512.0" maxWidth="640.0" minHeight="512.0" minWidth="640.0" prefHeight="512.0" prefWidth="640.0" scaleShape="false" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.GUIController">
+<AnchorPane fx:id="windowPane" maxHeight="512.0" maxWidth="640.0" minHeight="512.0" minWidth="640.0" prefHeight="512.0" prefWidth="640.0" scaleShape="false" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.GUIController">
    <children>
       <AnchorPane fx:id="arenaPane" minHeight="384.0" minWidth="384.0" prefHeight="512.0" prefWidth="384.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="256.0" AnchorPane.topAnchor="0.0">
          <children>

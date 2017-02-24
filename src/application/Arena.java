@@ -72,7 +72,7 @@ public class Arena{
 	}
 	
 	public void repaint(){
-		Platform.runLater(new Runnable(){
+		Platform.runLater(new Thread(){
 			@Override public void run(){
 				graphics.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 				for(int i = 0; i < arena.length; i ++){
@@ -133,9 +133,11 @@ public class Arena{
 		try{
 			switch(commandType){
 			case ARENA_CONFIG:
+				Console.addText("Arena configured");
 				init(command[0], command[1], command[2]);
 				break;
 			case ARENA_DISPLAY:
+				Console.addText("Arena displayed");
 				for(int i = 0; i < command.length; i ++){
 					int num = command[i];
 					int y = i%ySize, x = i/ySize;
