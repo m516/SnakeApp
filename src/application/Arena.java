@@ -58,7 +58,6 @@ public class Arena{
 		for(int i = 0; i <= numSnakes; i ++){
 			snakeColors[i] = Color.hsb(360.0*(float)(i/numSnakes), 1f, 1f);
 		}
-		bkg = snakeColors[SnakeManager.getSnake(0).getID()-1].darker().darker();
 	}
 	public static void setBlock(int x, int y, byte type){
 		arena[x][y] = type;
@@ -71,9 +70,16 @@ public class Arena{
 		graphics = canvas.getGraphicsContext2D();
 	}
 
-	public void repaint(){
+	public synchronized void repaint(){
 		Platform.runLater(() -> {
-			graphics.setFill(Color.BLACK);
+			int snakeID = SnakeManager.getSnake(0).getID()-1 - FRUIT;
+			if(snakeID > 0){
+				bkg = snakeColors[snakeID].darker().darker();
+			}
+			else{
+				bkg = Color.BLACK;
+			}
+			graphics.setFill(bkg);
 			graphics.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 			for(int i = 0; i < arena.length; i ++){
 				byte[] column = arena[i];
@@ -129,7 +135,7 @@ public class Arena{
 		r.setFill(p);
 		return r;
 	}
-	public static boolean retrieveCommand(int commandType, Integer[] command){
+	public synchronized static boolean retrieveCommand(int commandType, Integer[] command){
 		try{
 			switch(commandType){
 			case ARENA_CONFIG:
