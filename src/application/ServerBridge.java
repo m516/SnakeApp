@@ -198,10 +198,9 @@ public class ServerBridge{
 						for(LocI l: locations){
 							Console.addText(l.toString());
 						}
-						
 						break;
 					case REQUEST_SNAKE:
-						writeToServer("" + snake.move());
+						writeToServer("" + snake.update());
 						break;
 					case CLOSE:
 						try {

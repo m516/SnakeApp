@@ -6,6 +6,7 @@ public class TestSnake extends Snake {
 
 	@Override
 	public int move() {
+		Console.addText(getHead().toString());
 		timer--;
 		if(timer <= 0){
 			target = findFruit();
