@@ -14,7 +14,7 @@ public class ServerBridge{
 	PrintWriter out;
 	BufferedReader in;
 	String hostAddress = "127.0.0.1";
-	int portNumber =2060;
+	int portNumber =6419;
 	ScanThread stream = new ScanThread();
 	private volatile boolean isLive = false;
 	/**
@@ -105,6 +105,9 @@ public class ServerBridge{
 			Console.addText("Couldn't get I/O for the connection to " + hostAddress + 
 					", port number " + portNumber);
 			isLive = false;
+		}
+		catch (Exception e){
+			e.printStackTrace();
 		}
 	}
 	
