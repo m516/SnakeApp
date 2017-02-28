@@ -110,7 +110,7 @@ public class ServerBridge{
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Listens to the server in a new thread and listens to commands
 	 */
@@ -198,6 +198,7 @@ public class ServerBridge{
 						for(LocI l: locations){
 							Console.addText(l.toString());
 						}
+						snake.setActive(true);
 						break;
 					case REQUEST_SNAKE:
 						writeToServer("" + snake.update());

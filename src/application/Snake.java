@@ -266,6 +266,7 @@ public abstract class Snake {
 	final protected void die() {
 		Console.addText("Oh, No!!!  Your snake died!");
 		dead = true;
+		active = false;
 	}
 	/**
 	 * This method returns the state of the snake.
