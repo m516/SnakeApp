@@ -58,7 +58,7 @@ public class SnakeManager {
 	/**
 	 * Moves a snake
 	 * @param index
-	 * @return
+	 * @return TODO
 	 */
 	public synchronized static String move(int index){
 		return "" + snakes.get(index).update();
