@@ -56,7 +56,7 @@ public class Arena{
 		}
 		snakeColors = new Color[numSnakes+1];
 		for(int i = 0; i <= numSnakes; i ++){
-			snakeColors[i] = Color.hsb(360.0*(float)(i/numSnakes), 1f, 1f);
+			snakeColors[i] = Color.hsb(360.0*(float)i/(float)numSnakes, 1f, 1f);
 		}
 	}
 	public static void setBlock(int x, int y, byte type){
