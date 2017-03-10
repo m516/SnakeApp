@@ -1,4 +1,5 @@
 # SnakeApp
+
 This project is an application that allows users to program a snake and compete against other snakes on the web.  It serves as a client to ThePowerRule's SnakeServer application.  Although two test snakes are provided, it is up to users to program intelligent snakes that can compete in online arenas.
 Installation instructions:
 1.	Install EGit.
