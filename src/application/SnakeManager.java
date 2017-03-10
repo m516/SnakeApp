@@ -3,16 +3,21 @@ package application;
 import java.util.ArrayList;
 
 public class SnakeManager {
-	public volatile static ArrayList<Snake> snakes;
-	public volatile static ArrayList<ServerBridge> sockets;
+	private volatile ArrayList<ServerBridge> sockets;
+	private static SnakeManager thisInstance = new SnakeManager();
 	/**
-	 * Initializes the SnakeManager instance
+	 * Constructs a new instance of SnakeManager
 	 */
-	public SnakeManager() {
-		snakes = new ArrayList<Snake>();
+	private SnakeManager() {
 		sockets = new ArrayList<ServerBridge>();
 		System.out.println("Snake Manager initialized");
 	}
+	/**
+	 * Adds a snake to the list of snakes contained in the
+	 * <code>SnakeManager</code> and binds it to a 
+	 * new <code>ServerBridge</code> instance.
+	 * @param snake
+	 */
 	/**
 	 * Adds a snake to the list of snakes from this client application
 	 * that are currently playing in the arena.
@@ -22,51 +27,49 @@ public class SnakeManager {
 	 * @param snake - the <code>Snake</code> instance to add to the arena
 	 */
 	public synchronized static void addSnake(Snake snake){
-		snakes.add(snake);
 		ServerBridge socket = new ServerBridge();
 		socket.bindToSnake(snake);
-		sockets.add(socket);
+		thisInstance.sockets.add(socket);
 		System.out.print("Snake added: ");
 		System.out.println(snake.toString());
 	}
 	/**
-	 * 
-	 * @param index - the index of the snake to retrieve
-	 * @return the <code>Snake</code> instance at the location
-	 * specified by <i>index</i>
+	 * @param index - the index of the snake
+	 * @return the <code>Snake</code> instance at the given
+	 * index
 	 */
 	public synchronized static Snake getSnake(int index){
-		return snakes.get(index);
+		return thisInstance.sockets.get(index).getSnake();
 	}
-	/**
-	 * Connects all of the <code>ServerBridge</code> instances to a server
+	/***
+	 * Connects all of the current sockets to a server.
 	 * @param serverAddress - the IP address of the server
 	 * @param port - the port number to connect to
 	 */
 	public synchronized static void connectSnakesToServer(String serverAddress, int port){
-		for(ServerBridge bridge: sockets){
+		for(ServerBridge bridge: thisInstance.sockets){
 			bridge.connectToServer(serverAddress, port);
 		}
 	}
 	/**
-	 * Kills a snake at a certain index
-	 * @param index - the index number of the snake to kill
+	 * Moves a single snake
+	 * @param index - the index of the <code>Snake</code>
+	 * @return the <code>String</code>
+	 * representation of the number it returns
+	 * @deprecated Sockets already contain this functionality
 	 */
-	public synchronized static void killSnake(int index){
-		snakes.get(index).die();
+	@Deprecated
+	public synchronized static String move(int index){
+		return "" + thisInstance.sockets.get(index).getSnake().update();
 	}
 	/**
-	 * Moves a snake
-	 * @param index
-	 * @return TODO
+	 * Closes all of the <code>ServerBridge</code> instances
+	 * and removes them from the SnakeManager's list of 
+	 * sockets
 	 */
-	public synchronized static String move(int index){
-		return "" + snakes.get(index).update();
-	}
 	public synchronized static void closeAllBridges(){
-		for(int i = sockets.size()-1; i >= 0; i --){
-			sockets.remove(i).closeSocket();
-			snakes.remove(i);
+		for(int i = thisInstance.sockets.size()-1; i >= 0; i --){
+			thisInstance.sockets.remove(i).closeSocket();
 		}
 	}
 }
