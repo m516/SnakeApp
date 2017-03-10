@@ -32,12 +32,20 @@ public class ServerBridge{
 	}
 	/**
 	 * Binds this instance of ServerBridge to a snake.<p>
-	 * This allows the snake to "cross the bridge" between the client and the server.
+	 * This allows the snake to "cross the bridge" between the client 
+	 * and the server.
 	 * @param newSnake - the snake that this socket will control
 	 */
 	public void bindToSnake(Snake newSnake){
 		stream.snake = newSnake;
 		System.out.println(stream.snake);
+	}
+	/**
+	 * @return the <code>Snake</code> instance that this bridge is 
+	 * synchronized with
+	 */
+	public Snake getSnake(){
+		return stream.snake;
 	}
 	/**
 	 * Retrieves an integer value from an application
@@ -110,7 +118,7 @@ public class ServerBridge{
 			e.printStackTrace();
 		}
 	}
-
+	
 	/**
 	 * Listens to the server in a new thread and listens to commands
 	 */
