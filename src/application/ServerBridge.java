@@ -89,10 +89,10 @@ public class ServerBridge{
 			in = new BufferedReader(new InputStreamReader(echoSocket.getInputStream()));
 			//Connected! testing connections
 			Console.addText("Connected to " + portNumber);
-			writeToServer("Requesting test response");
+			//writeToServer("Requesting test response");
 			line = in.readLine();
 			//Printing the server's response to this successful operation
-			Console.addText("Server: " + line);
+			//Console.addText("Server: " + line);
 			isLive = true;
 			//Create a scanner for the new stream
 			listenAndParse();
