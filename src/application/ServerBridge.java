@@ -52,6 +52,7 @@ public class ServerBridge{
 		} catch (NumberFormatException | IOException e) {
 			Console.addText("Error parsing this line");
 			Console.addText(line);
+			e.printStackTrace();
 			closeSocket();
 
 		}
@@ -90,7 +91,7 @@ public class ServerBridge{
 			//Connected! testing connections
 			Console.addText("Connected to " + portNumber);
 			//writeToServer("Requesting test response");
-			line = in.readLine();
+			//line = in.readLine();
 			//Printing the server's response to this successful operation
 			//Console.addText("Server: " + line);
 			isLive = true;
@@ -104,6 +105,8 @@ public class ServerBridge{
 		catch (IOException e) {
 			Console.addText("Couldn't get I/O for the connection to " + hostAddress + 
 					", port number " + portNumber);
+			Console.addText(e.getMessage());
+			e.printStackTrace();
 			isLive = false;
 		}
 		catch (Exception e){

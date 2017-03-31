@@ -52,6 +52,9 @@ public class Arena{
 				arena[i][j] = ERR;
 			}
 		}
+		System.out.print("Arena initialized with ");
+		System.out.print("x-size: " + xSize);
+		System.out.println(" and y-size: " + ySize + ".");
 	}
 	public static void setBlock(int x, int y, byte type){
 		arena[x][y] = type;
