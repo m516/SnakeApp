@@ -69,13 +69,8 @@ public class Arena{
 
 	public synchronized void repaint(){
 		Platform.runLater(() -> {
-			int snakeID = SnakeManager.getSnake(0).getID()-1 - FRUIT;
-			if(snakeID > 0){
-				bkg = getSnakeColor(snakeID).darker().darker();
-			}
-			else{
-				bkg = Color.BLACK;
-			}
+			int snakeID = SnakeManager.getSnake(0).getID();
+			bkg = getSnakeColor(snakeID).darker().darker();
 			graphics.setFill(bkg);
 			graphics.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 			for(int i = 0; i < arena.length; i ++){
