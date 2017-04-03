@@ -2,14 +2,16 @@ package application;
 
 import java.util.ArrayList;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 public class SnakeManager {
-	public volatile static ArrayList<Snake> snakes;
-	public volatile static ArrayList<ServerBridge> sockets;
+	private volatile static ObservableList<Snake> snakes = FXCollections.observableArrayList();
+	private volatile static ArrayList<ServerBridge> sockets;
 	/**
 	 * Initializes the SnakeManager instance
 	 */
 	public SnakeManager() {
-		snakes = new ArrayList<Snake>();
 		sockets = new ArrayList<ServerBridge>();
 		System.out.println("Snake Manager initialized");
 	}
