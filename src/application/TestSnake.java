@@ -64,7 +64,7 @@ public class TestSnake extends Snake {
 		return new LocI(1,1);
 	}
 	@Override
-	public String getName() {
+	public String name() {
 		return "Super Snake";
 	}
 }

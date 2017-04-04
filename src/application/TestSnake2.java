@@ -16,7 +16,7 @@ public class TestSnake2 extends Snake {
 		return direction;
 	}
 	@Override
-	public String getName() {
+	public String name() {
 		return super.toString();
 	}
 }

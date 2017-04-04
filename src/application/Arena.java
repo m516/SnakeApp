@@ -29,7 +29,7 @@ public class Arena{
 	private static int xSize, ySize;
 	public static Arena instance = new Arena();
 	private static GraphicsContext graphics;
-	static Color bkg;
+	private static Color bkg;
 	private static Canvas canvas;
 	private Arena(){
 	}
@@ -69,8 +69,6 @@ public class Arena{
 
 	public synchronized void repaint(){
 		Platform.runLater(() -> {
-			int snakeID = SnakeManager.getSnake(0).getID();
-			bkg = getSnakeColor(snakeID).darker().darker();
 			graphics.setFill(bkg);
 			graphics.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 			for(int i = 0; i < arena.length; i ++){
@@ -150,7 +148,7 @@ public class Arena{
 		return true;
 	}
 	
-	private Color getSnakeColor(int snakeNumber){
+	public static Color getSnakeColor(int snakeNumber){
 		switch(snakeNumber){
 		case 0: return Color.BLUE; 
 		case 1: return Color.RED; 
@@ -175,6 +173,20 @@ public class Arena{
 			
 		
 		}
+	}
+	
+	/**
+	 * @return the background color
+	 */
+	public static Color getBkg() {
+		return bkg;
+	}
+	
+	/**
+	 * @param bkg the color to set the background color to
+	 */
+	public static void setBkg(Color bkg) {
+		Arena.bkg = bkg;
 	}
 }
 

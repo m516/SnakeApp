@@ -60,15 +60,27 @@ public class SnakeManager {
 	/**
 	 * Moves a snake
 	 * @param index
-	 * @return TODO
+	 * @return an integer value representing the new direction
+	 * of the snake
+	 * @see Snake.move(), Snake.update()
 	 */
 	public synchronized static String move(int index){
 		return "" + snakes.get(index).update();
 	}
+	/**
+	 * Closes all of the connections to the server 
+	 * and removes them from the list of snakes
+	 */
 	public synchronized static void closeAllBridges(){
 		for(int i = sockets.size()-1; i >= 0; i --){
 			sockets.remove(i).closeSocket();
 			snakes.remove(i);
 		}
+	}
+	/**
+	 * @return the snake list, used for the GUI manager
+	 */
+	public static ObservableList<Snake> getSnakes() {
+		return snakes;
 	}
 }

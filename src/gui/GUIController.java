@@ -12,9 +12,17 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
 public class GUIController implements Initializable {
+
+	@FXML
+    private ResourceBundle resources;
+
+    @FXML
+    private URL location;
 
     @FXML
     private AnchorPane windowPane;
@@ -47,16 +55,19 @@ public class GUIController implements Initializable {
     private Label textStatus;
 
     @FXML
-    private TextField textfieldServer;
-
-    @FXML
     private Button buttonServer;
 
     @FXML
-    private TableView<?> listSnakes;
+    private TableView<Snake> listSnakes;
 
     @FXML
-    private TableColumn<?, ?> mySnakes;
+    private TableColumn<Snake, String> columnSnakeNames;
+
+    @FXML
+    private TableColumn<Snake, Integer> columnID;
+
+    @FXML
+    private TextField textfieldServer;
     
     AppManager appManager;
     
@@ -79,9 +90,15 @@ public class GUIController implements Initializable {
 	@Override
 	public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
 		System.out.println("GUIController initialized");
+		//Configure the app manager
 		appManager = AppManager.getCurrentAppManager();
 		textName.setText(SnakeManager.getSnake(0).getName());
 		Arena.setCanvas(arena);
+		//Initialize the table
+		listSnakes.setItems(SnakeManager.getSnakes());
+		//Initialize the column
+		columnSnakeNames.setCellValueFactory(new PropertyValueFactory<Snake,String>("name"));
+		columnID.setCellValueFactory(new PropertyValueFactory<Snake,Integer>("id"));
 		System.out.println("Controller AppManager instance: " + appManager);
 		
 		
@@ -91,5 +108,12 @@ public class GUIController implements Initializable {
 		appManager = am;
 		System.out.println("Controller AppManager instance: " + appManager);
 	}
+	
+	
+    @FXML
+    void tableEdited(MouseEvent event) {
+    	Snake currentSnake = listSnakes.getSelectionModel().getSelectedItem();
+    	if(currentSnake != null)Arena.setBkg(Arena.getSnakeColor(currentSnake.getId()).darker().darker());
+    }
 
 }

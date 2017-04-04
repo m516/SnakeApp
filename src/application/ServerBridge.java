@@ -189,8 +189,8 @@ public class ServerBridge{
 						break;
 					case SNAKE_CONFIG:
 						//Get the ID of the snake
-						snake.setID(intArray[0]);
-						Console.addText("ID: "+snake.getID());
+						snake.setId(intArray[0]);
+						Console.addText("ID: "+snake.getId());
 						Console.addText("Size: "+(intArray.length-1)/2);
 						LocI[] locations = new LocI[(intArray.length-1)/2];
 						for(int i = 1; i < intArray.length-1; i += 2){
