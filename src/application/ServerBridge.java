@@ -60,6 +60,7 @@ public class ServerBridge{
 		} catch (NumberFormatException | IOException e) {
 			Console.addText("Error parsing this line");
 			Console.addText(line);
+			e.printStackTrace();
 			closeSocket();
 
 		}
@@ -97,10 +98,10 @@ public class ServerBridge{
 			in = new BufferedReader(new InputStreamReader(echoSocket.getInputStream()));
 			//Connected! testing connections
 			Console.addText("Connected to " + portNumber);
-			writeToServer("Requesting test response");
-			line = in.readLine();
+			//writeToServer("Requesting test response");
+			//line = in.readLine();
 			//Printing the server's response to this successful operation
-			Console.addText("Server: " + line);
+			//Console.addText("Server: " + line);
 			isLive = true;
 			//Create a scanner for the new stream
 			listenAndParse();
@@ -112,6 +113,8 @@ public class ServerBridge{
 		catch (IOException e) {
 			Console.addText("Couldn't get I/O for the connection to " + hostAddress + 
 					", port number " + portNumber);
+			Console.addText(e.getMessage());
+			e.printStackTrace();
 			isLive = false;
 		}
 		catch (Exception e){
@@ -194,8 +197,8 @@ public class ServerBridge{
 						break;
 					case SNAKE_CONFIG:
 						//Get the ID of the snake
-						snake.setID(intArray[0]);
-						Console.addText("ID: "+snake.getID());
+						snake.setId(intArray[0]);
+						Console.addText("ID: "+snake.getId());
 						Console.addText("Size: "+(intArray.length-1)/2);
 						LocI[] locations = new LocI[(intArray.length-1)/2];
 						for(int i = 1; i < intArray.length-1; i += 2){

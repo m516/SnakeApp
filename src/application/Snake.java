@@ -1,6 +1,9 @@
 package application;
 import java.util.ArrayList;
 
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+
 /**
  * The <i>SnakeRoot</i> class is an abstract class that users can extend to make
  * snakes that compete online.  It includes basic functions that most snakes
@@ -20,7 +23,8 @@ public abstract class Snake {
 	protected static final int OUTOFBOUNDS = 0, EMPTY = 1, WALL = 2, FRUIT = 3;
 	int steps = 0;	
 	private ArrayList<LocI> segs = new ArrayList<LocI>();
-	private int id = -1;
+	private final SimpleStringProperty name = new SimpleStringProperty(name());
+	private final SimpleIntegerProperty id = new SimpleIntegerProperty(-1);
 	public Snake(){};
 	/**
 	 * The constructor for a snake
@@ -58,7 +62,7 @@ public abstract class Snake {
 	/** 
 	 * @return the name of the snake
 	 */
-	public abstract String getName();
+	protected abstract String name();
 	/**
 	 * This method updates the snake's position of the <i>move</i> method.
 	 * It should not be called by snakes.
@@ -314,15 +318,21 @@ public abstract class Snake {
 	/**
 	 * @return the ID of the snake
 	 */
-	final public int getID(){
-		return id;
+	final public int getId(){
+		return id.get();
 	}
 	/**
 	 * Sets the ID of the snake
 	 * @param newID the new ID of the snake
 	 */
-	final public void setID(int newID){
-		id = newID;
+	final public void setId(int newID){
+		id.set(newID);
+	}
+	/**
+	 * @return the name of the snake
+	 */
+	final public String getName(){
+		return name.get();
 	}
 	/**
 	 * This method allows users to get the locations of the segments of their snake. 
