@@ -6,7 +6,6 @@ import gui.*;
 public class AppManager{
 	private static AppManager currentAppManager;
 	private Map<Class<?>,String> snakeTypes = new HashMap<Class<?>, String>();
-	private static SnakeManager snakeManager = new SnakeManager();
 	//private static GUIController controller = new GUIController();
 	private AppManager(){
 	}
