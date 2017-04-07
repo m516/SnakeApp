@@ -170,8 +170,6 @@ public class Arena{
 		case 17: return Color.YELLOWGREEN; 
 		default:
 			return Color.hsb(((double)snakeNumber)*11%1, 0.5, 1.0);
-			
-		
 		}
 	}
 	

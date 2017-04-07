@@ -96,6 +96,7 @@ public class GUIController implements Initializable {
 		Arena.setCanvas(arena);
 		//Initialize the table
 		listSnakes.setItems(SnakeManager.getSnakes());
+		System.out.println("Size of List of Snakes:  "+listSnakes.getItems().size());
 		//Initialize the column
 		columnSnakeNames.setCellValueFactory(new PropertyValueFactory<Snake,String>("name"));
 		columnID.setCellValueFactory(new PropertyValueFactory<Snake,Integer>("id"));
@@ -113,7 +114,10 @@ public class GUIController implements Initializable {
     @FXML
     void tableEdited(MouseEvent event) {
     	Snake currentSnake = listSnakes.getSelectionModel().getSelectedItem();
-    	if(currentSnake != null)Arena.setBkg(Arena.getSnakeColor(currentSnake.getId()).darker().darker());
+    	if(currentSnake != null){
+    		Arena.setBkg(Arena.getSnakeColor(currentSnake.getId()).darker().darker());
+			textName.setText(SnakeManager.getSnake(0).getName());
+    	}
     }
 
 }
