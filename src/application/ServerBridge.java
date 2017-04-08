@@ -181,7 +181,7 @@ public class ServerBridge{
 			ArrayList<Integer> intList = new ArrayList<Integer>();
 			while(isLive){
 				int x = getInt();
-				while(x!=END){intList.add(x);x=getInt();}
+				while(x!=END){intList.add(x);x=getInt();if(!isLive)return;}
 				int command = intList.remove(0);
 				Integer[] intArray = new Integer[intList.size()];
 				intArray = intList.toArray(intArray);
