@@ -121,7 +121,7 @@ public class ServerBridge{
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Listens to the server in a new thread and listens to commands
 	 */
@@ -149,11 +149,9 @@ public class ServerBridge{
 			return null;
 		}
 	}
-
-	@SuppressWarnings("unused")
 	private void delay(long milliseconds){
 		try {
-			Thread.sleep(100);
+			Thread.sleep(milliseconds);
 		} catch (InterruptedException e) {
 			Console.addText("Error waiting: " + e.getMessage());
 		}
@@ -182,53 +180,51 @@ public class ServerBridge{
 		public synchronized void run(){
 			ArrayList<Integer> intList = new ArrayList<Integer>();
 			while(isLive){
-				int currentInt = getInt();
-				intList.add(currentInt);
-				if(currentInt == END){
-					int command = intList.get(0);
-					intList.remove(0);
-					intList.remove(intList.size()-1);
-					Integer[] intArray = new Integer[intList.size()];
-					intArray = intList.toArray(intArray);
-					switch(command){
-					case ARENA_CONFIG:
-					case ARENA_DISPLAY:
-						Arena.retrieveCommand(command, intArray);
-						break;
-					case SNAKE_CONFIG:
-						//Get the ID of the snake
-						snake.setId(intArray[0]);
-						Console.addText("ID: "+snake.getId());
-						Console.addText("Size: "+(intArray.length-1)/2);
-						LocI[] locations = new LocI[(intArray.length-1)/2];
-						for(int i = 1; i < intArray.length-1; i += 2){
-							locations[(i-1)/2] = new LocI(intArray[i], intArray[i+1]);
-						}
-						snake.init(locations);
-						Console.addText("********Snake initialized");
-						for(LocI l: locations){
-							Console.addText(l.toString());
-						}
-						snake.setActive(true);
-						break;
-					case REQUEST_SNAKE:
-						writeToServer("" + snake.update());
-						break;
-					case CLOSE:
-						try {
-							echoSocket.close();
-							Console.addText("Connection to server successfully closed!");
-						} catch (IOException e) {
-							Console.addText("Error closing socket: " + e.getMessage());
-						}
-						isLive = false;
-						break;
-					case KILL_SNAKE:
-						Console.addText("***Your snake is dead :-(");
-						snake.die();
+				int x = getInt();
+				while(x!=END){intList.add(x);x=getInt();}
+				int command = intList.remove(0);
+				Integer[] intArray = new Integer[intList.size()];
+				intArray = intList.toArray(intArray);
+				switch(command){
+				case ARENA_CONFIG:
+				case ARENA_DISPLAY:
+					Arena.retrieveCommand(command, intArray);
+					break;
+				case SNAKE_CONFIG:
+					//Get the ID of the snake
+					snake.setId(intArray[0]);
+					Console.addText("ID: "+snake.getId());
+					Console.addText("Size: "+(intArray.length-1)/2);
+					LocI[] locations = new LocI[(intArray.length-1)/2];
+					for(int i = 1; i < intArray.length-1; i += 2){
+						locations[(i-1)/2] = new LocI(intArray[i], intArray[i+1]);
 					}
-					intList.clear();
+					snake.init(locations);
+					Console.addText("********Snake initialized");
+					for(LocI l: locations){
+						Console.addText(l.toString());
+					}
+					snake.setActive(true);
+					break;
+				case REQUEST_SNAKE:
+					writeToServer("" + snake.update());
+					break;
+				case CLOSE:
+					try {
+						echoSocket.close();
+						Console.addText("Connection to server successfully closed!");
+					} catch (IOException e) {
+						Console.addText("Error closing socket: " + e.getMessage());
+					}
+					isLive = false;
+					break;
+				case KILL_SNAKE:
+					Console.addText("***Your snake is dead :-(");
+					snake.die();
+					closeSocket();
 				}
+				intList.clear();
+				delay(100);
 			}
 		}
 	}

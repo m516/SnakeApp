@@ -6,12 +6,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class SnakeManager {
-	private volatile static ObservableList<Snake> snakes = FXCollections.observableArrayList();
-	private volatile static ArrayList<ServerBridge> sockets;
+	private volatile ObservableList<Snake> snakes = FXCollections.observableArrayList();
+	private volatile ArrayList<ServerBridge> sockets;
 	/**
 	 * Constructs a new instance of SnakeManager
 	 */
-	public SnakeManager() 
+	public SnakeManager() {
 		sockets = new ArrayList<ServerBridge>();
 		System.out.println("Snake Manager initialized");
 	}
@@ -29,10 +29,11 @@ public class SnakeManager {
 	 * <code>ServerBridge</code> instance
 	 * @param snake - the <code>Snake</code> instance to add to the arena
 	 */
-	public synchronized static void addSnake(Snake snake){
+	public synchronized void addSnake(Snake snake){
 		ServerBridge socket = new ServerBridge();
 		socket.bindToSnake(snake);
-		thisInstance.sockets.add(socket);
+		sockets.add(socket);
+		snakes.add(snake);
 		System.out.print("Snake added: ");
 		System.out.println(snake.toString());
 	}
@@ -41,16 +42,16 @@ public class SnakeManager {
 	 * @return the <code>Snake</code> instance at the given
 	 * index
 	 */
-	public synchronized static Snake getSnake(int index){
-		return thisInstance.sockets.get(index).getSnake();
+	public synchronized  Snake getSnake(int index){
+		return sockets.get(index).getSnake();
 	}
 	/***
 	 * Connects all of the current sockets to a server.
 	 * @param serverAddress - the IP address of the server
 	 * @param port - the port number to connect to
 	 */
-	public synchronized static void connectSnakesToServer(String serverAddress, int port){
-		for(ServerBridge bridge: thisInstance.sockets){
+	public synchronized void connectSnakesToServer(String serverAddress, int port){
+		for(ServerBridge bridge: sockets){
 			bridge.connectToServer(serverAddress, port);
 		}
 	}
@@ -60,35 +61,27 @@ public class SnakeManager {
 	 * @return the <code>String</code>
 	 * representation of the number it returns
 	 * @deprecated Sockets already contain this functionality
-	 */
-	@Deprecated
-	public synchronized static String move(int index){
-		return "" + thisInstance.sockets.get(index).getSnake().update();
-	}
-	/**
-	 * Moves a snake
-	 * @param index
-	 * @return an integer value representing the new direction
-	 * of the snake
 	 * @see Snake.move(), Snake.update()
 	 */
-	public synchronized static String move(int index){
-		return "" + snakes.get(index).update();
+	@Deprecated
+	public synchronized String move(int index){
+		return "" + sockets.get(index).getSnake().update();
 	}
   /**
 	 * Closes all of the <code>ServerBridge</code> instances
 	 * and removes them from the SnakeManager's list of 
 	 * sockets
 	 */
-	public synchronized static void closeAllBridges(){
-		for(int i = thisInstance.sockets.size()-1; i >= 0; i --){
-			thisInstance.sockets.remove(i).closeSocket();
+	public synchronized void closeAllBridges(){
+		for(int i = sockets.size()-1; i >= 0; i --){
+			snakes.remove(sockets.get(i).getSnake());
+			sockets.remove(i).closeSocket();
 		}
 	}
 	/**
 	 * @return the snake list, used for the GUI manager
 	 */
-	public static ObservableList<Snake> getSnakes() {
+	public ObservableList<Snake> getSnakes() {
 		return snakes;
 	}
 }

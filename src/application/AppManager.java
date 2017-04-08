@@ -1,16 +1,15 @@
 package application;
-import java.util.HashMap;
-import java.util.Map;
-import gui.*;
+import gui.GUI;
 
 public class AppManager{
 	private static AppManager currentAppManager;
-	private Map<Class<?>,String> snakeTypes = new HashMap<Class<?>, String>();
+	private static SnakeManager currentSnakeManager;
 	//private static GUIController controller = new GUIController();
 	private AppManager(){
 	}
 	private void init(){
 		//Initialize and configure the snake.
+		currentSnakeManager = new SnakeManager();
 		AppConfig.addSnakes();
 		System.out.println("AppManager Initialized!");
 	}
@@ -20,10 +19,17 @@ public class AppManager{
 		//Launch GUI
 		GUI.run();
 	}
-	public void addSnakeType(Class<?> snakeClass, String snakeName) {
-		snakeTypes.put(snakeClass, snakeName);
+	/**
+	 * @return the current SnakeManager
+	 */
+	public static SnakeManager getCurrentSnakeManager() {
+		return currentSnakeManager;
 	}
-	public static AppManager getCurrentAppManager() {
-		return currentAppManager;
+	/**
+	 * Adds a single snake to the current SnakeManager
+	 * @param s - the snake to add to the snake manager
+	 */
+	public static void addSnake(Snake s){
+		currentSnakeManager.addSnake(s);
 	}
 }

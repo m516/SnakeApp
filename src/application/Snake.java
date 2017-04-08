@@ -167,7 +167,7 @@ public abstract class Snake {
 	 * <p> <i>SNAKE</i>: a cell containing a snake segment
 	 * <p> <i>FRUIT</i>: a cell containing a fruit
 	 */
-	final protected int getStatusAtLocation(int x, int y) {
+	final protected int getBlockTypeAtLocation(int x, int y) {
 		return Arena.getBlock(x, y);
 	}	
 	/**
@@ -180,7 +180,7 @@ public abstract class Snake {
 	 * <p> <i>SNAKE</i>: a cell containing a snake segment
 	 * <p> <i>FRUIT</i>: a cell containing a fruit
 	 */
-	final protected int getStatusAtLocation(LocI location) {
+	final protected int getBlockTypeAtLocation(LocI location) {
 		return Arena.getBlock(location.getX(), location.getY());
 	}	
 	/**
@@ -209,7 +209,7 @@ public abstract class Snake {
 	 */
 	final protected boolean isWall(int x, int y) {
 		if(isInBounds(x,y))
-			return getStatusAtLocation(x, y) == WALL;
+			return getBlockTypeAtLocation(x, y) == WALL;
 		else return false;
 	}
 	/**
@@ -228,7 +228,7 @@ public abstract class Snake {
 	 */
 	final protected boolean isFruit(int x, int y) {
 		if(isInBounds(x,y))
-			return getStatusAtLocation(x, y) == FRUIT;
+			return getBlockTypeAtLocation(x, y) == FRUIT;
 		else return false;
 	}
 	/**
@@ -248,7 +248,7 @@ public abstract class Snake {
 	 * the block in question
 	 */
 	final protected int isSnake(int x, int y) {
-		int i = getStatusAtLocation(x, y);
+		int i = getBlockTypeAtLocation(x, y);
 		if(i > FRUIT) return i-1-FRUIT;
 		return -1;
 	}
