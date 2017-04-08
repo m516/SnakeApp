@@ -69,16 +69,16 @@ public class GUIController implements Initializable {
     @FXML
     private TextField textfieldServer;
     
-    AppManager appManager;
-    
     @FXML
     void buttonGoPressed(ActionEvent event) {
     	System.out.println("Go button pressed");
-    	SnakeManager.closeAllBridges();
+    	AppManager.getCurrentSnakeManager().closeAllBridges();
 		//Initialize and configure the snake.
 		AppConfig.addSnakes();
 		System.out.println("AppManager Initialized!");
-		SnakeManager.connectSnakesToServer(textfieldServer.getText(), 6419);
+		AppManager.getCurrentSnakeManager().connectSnakesToServer(textfieldServer.getText(), 6419);
+		listSnakes.getSelectionModel().select(0);
+		tableEdited(null);
     }
 
     @FXML
@@ -91,29 +91,26 @@ public class GUIController implements Initializable {
 	public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
 		System.out.println("GUIController initialized");
 		//Configure the app manager
-		appManager = AppManager.getCurrentAppManager();
-		textName.setText(SnakeManager.getSnake(0).getName());
+		textName.setText(AppManager.getCurrentSnakeManager().getSnake(0).getName());
 		Arena.setCanvas(arena);
 		//Initialize the table
-		listSnakes.setItems(SnakeManager.getSnakes());
+		listSnakes.setItems(AppManager.getCurrentSnakeManager().getSnakes());
 		//Initialize the column
 		columnSnakeNames.setCellValueFactory(new PropertyValueFactory<Snake,String>("name"));
 		columnID.setCellValueFactory(new PropertyValueFactory<Snake,Integer>("id"));
-		System.out.println("Controller AppManager instance: " + appManager);
 		
 		
-	}
-	
-	public void setAppManagerInstance(AppManager am){
-		appManager = am;
-		System.out.println("Controller AppManager instance: " + appManager);
 	}
 	
 	
     @FXML
     void tableEdited(MouseEvent event) {
     	Snake currentSnake = listSnakes.getSelectionModel().getSelectedItem();
-    	if(currentSnake != null)Arena.setBkg(Arena.getSnakeColor(currentSnake.getId()).darker().darker());
+    	if(currentSnake != null){
+    		Arena.setBkg(Arena.getSnakeColor(currentSnake.getId()).darker().darker());
+    		textName.setText(currentSnake.getName() + " (" + currentSnake.getId() + ")");
+    	}
+    	listSnakes.refresh();
     }
 
 }
