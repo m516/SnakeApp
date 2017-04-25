@@ -7,9 +7,11 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 
+import javax.swing.plaf.synth.SynthSeparatorUI;
+
 public class ServerBridge{
-	public static final int END = -2, ARENA_CONFIG = -3, ARENA_DISPLAY = -4, CLOSE = -5, 
-			SNAKE_CONFIG = -6, REQUEST_SNAKE = -7, KILL_SNAKE = -8;
+	public static final int END = 249, ARENA_CONFIG = 250, ARENA_DISPLAY = 251, CLOSE = 252, 
+			SNAKE_CONFIG = 253, REQUEST_SNAKE = 254, KILL_SNAKE = 255;
 	Socket echoSocket;
 	PrintWriter out;
 	BufferedReader in;
@@ -188,6 +190,7 @@ public class ServerBridge{
 				switch(command){
 				case ARENA_CONFIG:
 				case ARENA_DISPLAY:
+					System.out.println("Command recieved");
 					Arena.retrieveCommand(command, intArray);
 					break;
 				case SNAKE_CONFIG:

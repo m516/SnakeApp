@@ -24,7 +24,6 @@ public class Arena{
 	 * ARENA_DISPLAY   - the updated arena, followed by all of the pixels
 	 * END             - An end of a command
 	 */
-	public static final int END = -2, ARENA_CONFIG = -3, ARENA_DISPLAY = -4, SNAKE_CONFIG = -6;
 	private static volatile byte[][] arena;
 	private static int xSize, ySize;
 	public static Arena instance = new Arena();
@@ -125,11 +124,12 @@ public class Arena{
 	public synchronized static boolean retrieveCommand(int commandType, Integer[] command){
 		try{
 			switch(commandType){
-			case ARENA_CONFIG:
+			case ServerBridge.ARENA_CONFIG:
 				Console.addText("Arena configured");
 				init(command[0], command[1]);
 				break;
-			case ARENA_DISPLAY:
+			case ServerBridge.ARENA_DISPLAY:
+				System.out.println("Arena displayed");
 				for(int i = 0; i < command.length; i ++){
 					int num = command[i];
 					int y = i%ySize, x = i/ySize;
