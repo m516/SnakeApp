@@ -125,11 +125,9 @@ public class Arena{
 		try{
 			switch(commandType){
 			case ServerBridge.ARENA_CONFIG:
-				Console.addText("Arena configured");
 				init(command[0], command[1]);
 				break;
 			case ServerBridge.ARENA_DISPLAY:
-				System.out.println("Arena displayed");
 				for(int i = 0; i < command.length; i ++){
 					int num = command[i];
 					int y = i%ySize, x = i/ySize;
