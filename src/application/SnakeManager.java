@@ -6,13 +6,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class SnakeManager {
-	private volatile ObservableList<Snake> snakes = FXCollections.observableArrayList();
-	private volatile ArrayList<ServerBridge> sockets;
-	private static SnakeManager thisInstance = new SnakeManager();
+	private volatile static ObservableList<Snake> snakes = FXCollections.observableArrayList();
+	private volatile static ArrayList<ServerBridge> sockets;
 	/**
 	 * Constructs a new instance of SnakeManager
 	 */
-	public SnakeManager() {
+	public SnakeManager() 
 		sockets = new ArrayList<ServerBridge>();
 		System.out.println("Snake Manager initialized");
 	}
@@ -34,7 +33,6 @@ public class SnakeManager {
 		ServerBridge socket = new ServerBridge();
 		socket.bindToSnake(snake);
 		thisInstance.sockets.add(socket);
-		thisInstance.snakes.add(snake);
 		System.out.print("Snake added: ");
 		System.out.println(snake.toString());
 	}
@@ -67,6 +65,16 @@ public class SnakeManager {
 	public synchronized static String move(int index){
 		return "" + thisInstance.sockets.get(index).getSnake().update();
 	}
+	/**
+	 * Moves a snake
+	 * @param index
+	 * @return an integer value representing the new direction
+	 * of the snake
+	 * @see Snake.move(), Snake.update()
+	 */
+	public synchronized static String move(int index){
+		return "" + snakes.get(index).update();
+	}
   /**
 	 * Closes all of the <code>ServerBridge</code> instances
 	 * and removes them from the SnakeManager's list of 
@@ -74,7 +82,6 @@ public class SnakeManager {
 	 */
 	public synchronized static void closeAllBridges(){
 		for(int i = thisInstance.sockets.size()-1; i >= 0; i --){
-			thisInstance.snakes.remove(thisInstance.sockets.get(i).getSnake());
 			thisInstance.sockets.remove(i).closeSocket();
 		}
 	}
@@ -82,6 +89,6 @@ public class SnakeManager {
 	 * @return the snake list, used for the GUI manager
 	 */
 	public static ObservableList<Snake> getSnakes() {
-		return thisInstance.snakes;
+		return snakes;
 	}
 }

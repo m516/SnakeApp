@@ -1,5 +1,7 @@
 package application;
 
+import java.util.Random;
+
 public class TestSnake2 extends Snake {
 	int direction = 0;
 	int timer = 0;
