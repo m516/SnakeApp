@@ -11,11 +11,11 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.Reflection?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.RadialGradient?>
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="windowPane" maxHeight="512.0" maxWidth="640.0" minHeight="512.0" minWidth="640.0" prefHeight="512.0" prefWidth="640.0" scaleShape="false" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.GUIController">
+<AnchorPane fx:id="windowPane" maxHeight="512.0" maxWidth="640.0" minHeight="512.0" minWidth="640.0" prefHeight="512.0" prefWidth="640.0" scaleShape="false" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.GUIController">
    <children>
       <AnchorPane fx:id="arenaPane" minHeight="384.0" minWidth="384.0" prefHeight="512.0" prefWidth="384.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="256.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -30,16 +30,18 @@
                   <Font name="Eurostile Bold" size="32.0" />
                </font>
                <effect>
-                  <Reflection fraction="0.53" topOffset="-10.0" topOpacity="1.0" />
+                  <Reflection fraction="0.53" topOffset="-15.0" topOpacity="1.0" />
                </effect>
                <textFill>
-                  <LinearGradient cycleMethod="REFLECT" endX="0.5095238095238095" endY="1.0" startX="0.5285714285714286">
+                  <RadialGradient centerX="0.3944444444444444" centerY="1.0" focusAngle="124.51" focusDistance="-1.1102230246251565E-16" radius="1.0">
                      <stops>
-                        <Stop color="#616b75" />
-                        <Stop color="#0d0c11" offset="0.9923371647509578" />
-                        <Stop color="#0d0c11" offset="1.0" />
+                        <Stop color="WHITE" />
+                        <Stop color="#bfcbf5" offset="0.007662835249042145" />
+                        <Stop color="#7ec5ff" offset="0.421455938697318" />
+                        <Stop color="#209cf5" offset="0.43946755144764355" />
+                        <Stop color="#000f2f" offset="1.0" />
                      </stops>
-                  </LinearGradient>
+                  </RadialGradient>
                </textFill>
             </Label>
             <LineChart fx:id="statusGraph" layoutX="42.0" layoutY="46.0" prefHeight="196.0" prefWidth="128.0" AnchorPane.leftAnchor="42.0" AnchorPane.topAnchor="46.0">
@@ -56,7 +58,7 @@
                </font>
             </Label>
             <Label fx:id="textLosses" layoutY="82.0" prefHeight="17.0" prefWidth="74.0" text="Losses: 1" AnchorPane.leftAnchor="0.0" />
-            <Label fx:id="textStatus" layoutY="135.0" prefHeight="17.0" prefWidth="74.0" text="Top 15%" AnchorPane.leftAnchor="0.0">
+            <Label fx:id="textStatus" layoutY="135.0" prefHeight="17.0" prefWidth="74.0" text="Place: " AnchorPane.leftAnchor="0.0">
                <font>
                   <Font name="Eurostile Bold" size="16.0" />
                </font>
