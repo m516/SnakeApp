@@ -4,7 +4,6 @@ import gui.GUI;
 public class AppManager{
 	private static AppManager currentAppManager;
 	private static SnakeManager currentSnakeManager;
-	//private static GUIController controller = new GUIController();
 	private AppManager(){
 	}
 	private void init(){

@@ -8,8 +8,8 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 public class ServerBridge{
-	public static final int END = 249, ARENA_CONFIG = 250, ARENA_DISPLAY = 251, CLOSE = 252, 
-			SNAKE_CONFIG = 253, REQUEST_SNAKE = 254, KILL_SNAKE = 255;
+	public static final byte END = 121, ARENA_CONFIG = 122, ARENA_DISPLAY = 123, CLOSE = 124, 
+			SNAKE_CONFIG = 125, REQUEST_SNAKE = 126, KILL_SNAKE = 127;
 	Socket echoSocket;
 	PrintWriter out;
 	BufferedReader in;
