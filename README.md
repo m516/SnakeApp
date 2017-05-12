@@ -4,4 +4,4 @@ This project is an application that allows users to program a snake and compete 
 
 Installation instructions can be found on the [SnakeApp Wiki](https://github.com/ThePowerRule/SnakeApp/wiki).
 
-Note: Although this repository will always contain the source code for SnakeApp, a JAR file will be periodically released to allow SnakeApp to work on all Java developing software.
+Note: Although this repository will always contain the source code for SnakeApp, a JAR file will be periodically released to allow SnakeApp to work on all Java development software.
