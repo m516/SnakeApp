@@ -54,9 +54,9 @@ public class ServerBridge{
 	private int getInt(){
 		String line = "no text in this line";
 		try { 
-			line = in.readLine();
-			int r = Integer.parseInt(line);
-			return r;
+			char[] c = new char[1];
+			in.read(c);
+			return (byte)c[0];
 		} catch (NumberFormatException | IOException e) {
 			Console.addText("Error parsing this line");
 			Console.addText(line);
