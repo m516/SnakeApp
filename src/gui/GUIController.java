@@ -43,15 +43,6 @@ public class GUIController implements Initializable {
     private Label textName;
 
     @FXML
-    private LineChart<?, ?> statusGraph;
-
-    @FXML
-    private Label textWins;
-
-    @FXML
-    private Label textLosses;
-
-    @FXML
     private Label textStatus;
 
     @FXML

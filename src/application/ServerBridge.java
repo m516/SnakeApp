@@ -149,6 +149,7 @@ public class ServerBridge{
 			return null;
 		}
 	}
+	@SuppressWarnings("unused")
 	private void delay(long milliseconds){
 		try {
 			Thread.sleep(milliseconds);
@@ -224,7 +225,6 @@ public class ServerBridge{
 					closeSocket();
 				}
 				intList.clear();
-				delay(100);
 			}
 		}
 	}
