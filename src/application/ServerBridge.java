@@ -20,14 +20,14 @@ public class ServerBridge{
 	/**
 	 * The default constructor for a ServerBridge.
 	 */
-	public ServerBridge(){
+	ServerBridge(){
 	}
 	/**
 	 * Binds this instance of ServerBridge to a snake.<p>
 	 * This allows the snake to "cross the bridge" between the client and the server.
 	 * @param newSnake - the snake that this socket will control
 	 */
-	public ServerBridge(Snake snake){
+	ServerBridge(Snake snake){
 		bindToSnake(snake);
 	}
 	/**
@@ -36,7 +36,7 @@ public class ServerBridge{
 	 * and the server.
 	 * @param newSnake - the snake that this socket will control
 	 */
-	public void bindToSnake(Snake newSnake){
+	void bindToSnake(Snake newSnake){
 		stream.snake = newSnake;
 		System.out.println(stream.snake);
 	}
@@ -71,7 +71,7 @@ public class ServerBridge{
 	 * @param serverAddress - the address of the server to connect to
 	 * @param port - the port to connect to
 	 */
-	public void connectToServer(String serverAddress, int port){
+	void connectToServer(String serverAddress, int port){
 		hostAddress = serverAddress;
 		portNumber = port;
 		try{ 

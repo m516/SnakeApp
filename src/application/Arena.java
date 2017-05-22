@@ -42,7 +42,7 @@ public class Arena{
 	 * Snakes must not call this method or ANY OTHER MUTATOR METHODS in this class!  
 	 * It will throw errors in the application and will not change anything in the server.
 	 */
-	public static void init(int new_x_size, int new_y_size){
+	static void init(int new_x_size, int new_y_size){
 		arena = new byte[new_x_size][new_y_size];
 		xSize = new_x_size;
 		ySize = new_y_size;
@@ -55,13 +55,13 @@ public class Arena{
 		System.out.print("x-size: " + xSize);
 		System.out.println(" and y-size: " + ySize + ".");
 	}
-	public static void setBlock(int x, int y, byte type){
+	static void setBlock(int x, int y, byte type){
 		arena[x][y] = type;
 	}
 	public static int getBlock(int x, int y){
 		return arena[x][y];
 	}
-	public static void setCanvas(Canvas newCanvas){
+	static void setCanvas(Canvas newCanvas){
 		canvas = newCanvas;
 		graphics = canvas.getGraphicsContext2D();
 	}

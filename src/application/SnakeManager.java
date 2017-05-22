@@ -11,7 +11,7 @@ public class SnakeManager {
 	/**
 	 * Constructs a new instance of SnakeManager
 	 */
-	public SnakeManager() {
+	SnakeManager() {
 		sockets = new ArrayList<ServerBridge>();
 		System.out.println("Snake Manager initialized");
 	}
@@ -29,7 +29,7 @@ public class SnakeManager {
 	 * <code>ServerBridge</code> instance
 	 * @param snake - the <code>Snake</code> instance to add to the arena
 	 */
-	public synchronized void addSnake(Snake snake){
+	synchronized void addSnake(Snake snake){
 		ServerBridge socket = new ServerBridge();
 		socket.bindToSnake(snake);
 		sockets.add(socket);
@@ -50,7 +50,7 @@ public class SnakeManager {
 	 * @param serverAddress - the IP address of the server
 	 * @param port - the port number to connect to
 	 */
-	public synchronized void connectSnakesToServer(String serverAddress, int port){
+	synchronized void connectSnakesToServer(String serverAddress, int port){
 		for(ServerBridge bridge: sockets){
 			bridge.connectToServer(serverAddress, port);
 		}
@@ -64,7 +64,7 @@ public class SnakeManager {
 	 * @see Snake.move(), Snake.update()
 	 */
 	@Deprecated
-	public synchronized String move(int index){
+	synchronized String move(int index){
 		return "" + sockets.get(index).getSnake().update();
 	}
   /**
@@ -72,7 +72,7 @@ public class SnakeManager {
 	 * and removes them from the SnakeManager's list of 
 	 * sockets
 	 */
-	public synchronized void closeAllBridges(){
+	synchronized void closeAllBridges(){
 		for(int i = sockets.size()-1; i >= 0; i --){
 			snakes.remove(sockets.get(i).getSnake());
 			sockets.remove(i).closeSocket();
