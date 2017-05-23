@@ -6,6 +6,9 @@ public class AppManager{
 	private static SnakeConfigurationManager currentSnakeConfigurationManager;
 	private AppManager(){
 	}
+	/**
+	 * Initializes the application and its user interface
+	 */
 	public static void init(){
 		//Initialize and configure the snake.
 		currentSnakeManager = new SnakeManager();
@@ -14,7 +17,6 @@ public class AppManager{
 		GUI.run();
 	}
 	public static void main(String[] args) {
-		//currentAppManager = new AppManager();
 		AppManager.init();
 	}
 	/**
