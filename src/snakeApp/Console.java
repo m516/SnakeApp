@@ -1,15 +1,20 @@
 package snakeApp;
 
+/**
+ * A console will soon be visible on the GUI
+ * @author mm44928
+ *
+ */
 public class Console{
 	//private static String[] lines = new String[64];
 	//private static int numLines = 0;
 	//private static TextArea gui = new TextArea("Welcome!");
-	public static void init() {
+	static void init() {
 		//gui.setEditable(false);
 		//lines = new String[64];
 		//numLines = 0;
 	}
-	public static void addText(String str) {
+	static void addText(String str) {
 		/*
 		numLines ++;
 		if(numLines == lines.length) {

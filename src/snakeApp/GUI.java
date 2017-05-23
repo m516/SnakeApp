@@ -5,7 +5,11 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-
+/**
+ * The graphical user interface for the application
+ * @author mm44928
+ *
+ */
 public class GUI extends Application {
 	@Override
 	public void start(Stage primaryStage) {

@@ -5,8 +5,10 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 /**
- * The <i>SnakeRoot</i> class is an abstract class that users can extend to make
- * snakes that compete online.  It includes basic functions that most snakes
+ * An abstract class that users can extend to make
+ * snakes that compete online.  
+ * 
+ * <p>It includes basic functions that most snakes
  * need to stay alive, find food, track other players, etc. <p>
  * <b>NOTE:</b> modifying this class in any way does not affect the overall
  * outcome of the game.  All of the information regarding games, snakes
@@ -28,8 +30,8 @@ public abstract class Snake {
 	public Snake(){};
 	/**
 	 * The constructor for a snake
-	 * @param location - the initial location of the 
-	 * @param numSegs - the number of segments initially on the snake
+	 * @param location the initial location of the 
+	 * @param numSegs the number of segments initially on the snake
 	 */
 	public Snake(LocI location, int numSegs) {
 		for(int i = 0; i < numSegs; i ++){
@@ -38,7 +40,7 @@ public abstract class Snake {
 	}
 	/**
 	 * The most commonly used constructor for snakes
-	 * @param locations - the initial locations for all of the snake segments
+	 * @param locations the initial locations for all of the snake segments
 	 */
 	public void init(LocI[] locations){
 		for(LocI loc: locations){
@@ -66,6 +68,7 @@ public abstract class Snake {
 	/**
 	 * This method updates the snake's position of the <i>move</i> method.
 	 * It should not be called by snakes.
+	 * @return the new direction of the snake
 	 */
 	final public int update() {
 		if(!dead && active){
@@ -134,7 +137,7 @@ public abstract class Snake {
 		return isGood(h);
 	}
 	/**
-	 * @param l - a location
+	 * @param l a location
 	 * @return true if the snake can survive at location <i>l</i>.
 	 */
 	final protected boolean isGood(LocI l){
@@ -142,7 +145,7 @@ public abstract class Snake {
 		return true;
 	}
 	/**
-	 * @param direction - the current (or planned) direction of the snake
+	 * @param direction the current (or planned) direction of the snake
 	 * @return the location of the snake's head after it moves
 	 * <p> NOTE: the position will return <i>null</i> if <i>direction</i>
 	 * is not a number that specifies a legitimate direction.
@@ -158,8 +161,8 @@ public abstract class Snake {
 	}
 	/**
 	 * This method returns the state of the position specified in the parameter.
-	 * @param x - the x-position of the location
-	 * @param y - the y-position of the location
+	 * @param x the x-position of the location
+	 * @param y the y-position of the location
 	 * @return an integer constant representing one of the following states:
 	 * <p> <i>OUTOFBOUNDS</i>: the position is not in the playing field.
 	 * <p> <i>EMPTY</i>: an empty cell
@@ -172,7 +175,7 @@ public abstract class Snake {
 	}	
 	/**
 	 * This method returns the state of the position specified in the parameter.
-	 * @param location - the location to be tested
+	 * @param location the location to be tested
 	 * @return an integer constant representing one of the following states:
 	 * <p> <i>OUTOFBOUNDS</i>: the position is not in the playing field.
 	 * <p> <i>EMPTY</i>: an empty cell
@@ -184,8 +187,8 @@ public abstract class Snake {
 		return Arena.getBlock(location.getX(), location.getY());
 	}	
 	/**
-	 * @param x - the x-position of the location
-	 * @param y - the y-position of the location
+	 * @param x the x-position of the location
+	 * @param y the y-position of the location
 	 * @return true if the location is in bounds
 	 */
 	final protected boolean isInBounds(int x, int y) {
@@ -196,15 +199,15 @@ public abstract class Snake {
 		return true;
 	}
 	/**
-	 * @param l - the location
+	 * @param l the location
 	 * @return true if the location is in bounds
 	 */
 	final protected boolean isInBounds(LocI l) {
 		return isInBounds(l.getX(),l.getY());
 	}
 	/**
-	 * @param x - the x-position of the location
-	 * @param y - the y-position of the location
+	 * @param x the x-position of the location
+	 * @param y the y-position of the location
 	 * @return true if the location is blocked by a wall
 	 */
 	final protected boolean isWall(int x, int y) {
@@ -213,7 +216,7 @@ public abstract class Snake {
 		else return false;
 	}
 	/**
-	 * @param l - the location
+	 * @param l the location
 	 * @return true if the location is blocked by a wall
 	 */
 	final protected boolean isWall(LocI l) {
@@ -222,8 +225,8 @@ public abstract class Snake {
 		else return false;
 	}
 	/**
-	 * @param x - the x-position of the location
-	 * @param y - the y-position of the location
+	 * @param x the x-position of the location
+	 * @param y the y-position of the location
 	 * @return true if the location is a fruit
 	 */
 	final protected boolean isFruit(int x, int y) {
@@ -232,7 +235,7 @@ public abstract class Snake {
 		else return false;
 	}
 	/**
-	 * @param l - the location
+	 * @param l the location
 	 * @return true if the location is a fruit
 	 */
 	final protected boolean isFruit(LocI l) {
@@ -241,8 +244,8 @@ public abstract class Snake {
 		else return false;
 	}
 	/**
-	 * @param x - the x-position of the location
-	 * @param y - the y-position of the location
+	 * @param x the x-position of the location
+	 * @param y the y-position of the location
 	 * @return the snake ID if the location is blocked by a snake
 	 * and <i>-1</i> if a snake does not currently occupy
 	 * the block in question
@@ -253,7 +256,7 @@ public abstract class Snake {
 		return -1;
 	}
 	/**
-	 * @param l - the location
+	 * @param l the location
 	 * @return the snake ID if the location is blocked by a snake
 	 * and <i>EMPTY</i> if a snake does not currently occupy
 	 * the block in question
@@ -287,7 +290,7 @@ public abstract class Snake {
 	}
 	/**
 	 * 
-	 * @param active - sets the activity of the snake
+	 * @param active sets the activity of the snake
 	 */
 	public void setActive(boolean active) {
 		this.active = active;

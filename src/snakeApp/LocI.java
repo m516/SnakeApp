@@ -1,6 +1,6 @@
 package snakeApp;
 /**
- * A LocI is a set of integers that serve as a location in two-dimensional space.
+ * A set of integers that serve as a location in two-dimensional space.
  * @author Micah Mundy
  *
  */
@@ -9,8 +9,8 @@ public class LocI{
 	private int y;
 	/**
 	 * the default constructor for a location integer
-	 * @param location x
-	 * @param location y
+	 * @param location_x the x-location of the point
+	 * @param location_y the y-location of the point
 	 */
 	public LocI(int location_x, int location_y){
 		x = location_x;
@@ -18,7 +18,7 @@ public class LocI{
 	}
 	/**
 	 * returns true if the locations are equal
-	 * @param l - the other location
+	 * @param l the other location
 	 * @return true if the two locations are equal
 	 */
 	public boolean equals(LocI l){
@@ -27,8 +27,8 @@ public class LocI{
 	}
 	/**
 	 * returns true if the locations are equal
-	 * @param x - the x-coordinate of the other location
-	 * @param y - the y-coordinate of the other location
+	 * @param x the x-coordinate of the other location
+	 * @param y the y-coordinate of the other location
 	 * @return true if the two locations are equal
 	 */
 	public boolean equals(int x, int y){
@@ -36,8 +36,8 @@ public class LocI{
 	}
 	/**
 	 * translates the location to the given coordinates
-	 * @param location x
-	 * @param location y
+	 * @param location_x the x-location of the point
+	 * @param location_y the y-location of the point
 	 */
 	public void jumpTo(int location_x, int location_y){
 		x = location_x;
@@ -45,7 +45,7 @@ public class LocI{
 	}
 	/**
 	 * translates this instance of LocI to equal "location"
-	 * @param the location to jump to
+	 * @param location the location to jump to
 	 */
 	public void jumpTo(LocI location){
 		x = location.x;
@@ -53,8 +53,8 @@ public class LocI{
 	}
 	/**
 	 * translates this instance of LocI by (x,y)
-	 * @param x - a change in the x-coordinate
-	 * @param y - a change in the y-coordinate
+	 * @param x a change in the x-coordinate
+	 * @param y a change in the y-coordinate
 	 */
 	public void translate(int x, int y){
 		this.x += x;
@@ -62,8 +62,8 @@ public class LocI{
 	}
 	/**
 	 * translates this instance of LocI by (x,y)
-	 * @param x - a change in the x-coordinate
-	 * @param y - a change in the y-coordinate
+	 * @param x a change in the x-coordinate
+	 * @param y a change in the y-coordinate
 	 */
 	public void translate(double x, double y){
 		this.x += (int)x;
@@ -87,7 +87,7 @@ public class LocI{
 	}
 	/**
 	 * Sets the x-value of this location to <i>x</i>.
-	 * @param x - the new x-value of this location
+	 * @param x the new x-value of this location
 	 */
 	public void setX(int x) {
 		this.x = x;
@@ -100,11 +100,12 @@ public class LocI{
 	}
 	/**
 	 * Sets the y-value of this location to <i>y</i>.
-	 * @param y - the new y-value of this location
+	 * @param y the new y-value of this location
 	 */
 	public void setY(int y) {
 		this.y = y;
 	}
+	
 	@Override
 	public String toString(){
 		return "("+x+","+y+")";
@@ -113,7 +114,7 @@ public class LocI{
 	 * This method uses the distance formula to 
 	 * return a precise distance between <b>o</b>.
 	 * The formula is <code>Math.sqrt(Math.pow(x-o.x,2)+Math.pow(y-o.y,2))</code>
-	 * @param o - the other LocI to compare distances
+	 * @param o the other LocI to compare distances
 	 * @return the distance to the this point and <b>o</b>.
 	 */
 	public double distanceTo(LocI o){
@@ -125,7 +126,7 @@ public class LocI{
 	 * This method uses the distance formula to 
 	 * return an estimated distance between <b>o</b>.
 	 * The formula is <code>Math.abs(x-o.x)+Math.abs(y-o.y)</code>
-	 * @param o - the other LocI to compare distances
+	 * @param o the other LocI to compare distances
 	 * @return the estimated distance to the this point and <b>o</b>. 
 	 */
 	public int distanceEstimate(LocI o){

@@ -1,5 +1,9 @@
 package snakeApp;
-
+/**
+ * A static class that creates and initializes vital components for the application
+ * @author mm44928
+ *
+ */
 public class AppManager{
 	//private static AppManager currentAppManager;
 	private static SnakeManager currentSnakeManager;
@@ -43,7 +47,6 @@ public class AppManager{
 	
 	/**
 	 * Adds all snakes to the SnakeManager
-	 * @param currentSnakeConfigurationManager
 	 */
 	static void addSnakesToArena(){
 		if(currentSnakeConfigurationManager==null){
@@ -57,6 +60,7 @@ public class AppManager{
 	/**
 	 * Sets the current configuration manager, the class that 
 	 * allows users to add their snakes to the game
+	 * @param newManager the new snake configuration manager
 	 */
 	public static void setSnakeConfigurationManager(SnakeConfigurationManager newManager){
 		currentSnakeConfigurationManager = newManager;

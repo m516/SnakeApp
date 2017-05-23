@@ -6,7 +6,11 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
-
+/**
+ * A connection to the server
+ * @author mm44928
+ *
+ */
 public class ServerBridge{
 	public static final byte END = 121, ARENA_CONFIG = 122, ARENA_DISPLAY = 123, CLOSE = 124, 
 			SNAKE_CONFIG = 125, REQUEST_SNAKE = 126, KILL_SNAKE = 127;
@@ -25,7 +29,7 @@ public class ServerBridge{
 	/**
 	 * Binds this instance of ServerBridge to a snake.<p>
 	 * This allows the snake to "cross the bridge" between the client and the server.
-	 * @param newSnake - the snake that this socket will control
+	 * @param newSnake the snake that this socket will control
 	 */
 	ServerBridge(Snake snake){
 		bindToSnake(snake);
@@ -34,7 +38,7 @@ public class ServerBridge{
 	 * Binds this instance of ServerBridge to a snake.<p>
 	 * This allows the snake to "cross the bridge" between the client 
 	 * and the server.
-	 * @param newSnake - the snake that this socket will control
+	 * @param newSnake the snake that this socket will control
 	 */
 	void bindToSnake(Snake newSnake){
 		stream.snake = newSnake;
@@ -68,8 +72,8 @@ public class ServerBridge{
 	}
 	/**
 	 * Connects the client application to the server and makes
-	 * @param serverAddress - the address of the server to connect to
-	 * @param port - the port to connect to
+	 * @param serverAddress the address of the server to connect to
+	 * @param port the port to connect to
 	 */
 	void connectToServer(String serverAddress, int port){
 		hostAddress = serverAddress;

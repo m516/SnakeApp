@@ -4,7 +4,11 @@ import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
+/**
+ * The manager for snakes and their connections to the server
+ * @author mm44928
+ *
+ */
 public class SnakeManager {
 	private volatile ObservableList<Snake> snakes = FXCollections.observableArrayList();
 	private volatile ArrayList<ServerBridge> sockets;
@@ -16,18 +20,12 @@ public class SnakeManager {
 		System.out.println("Snake Manager initialized");
 	}
 	/**
-	 * Adds a snake to the list of snakes contained in the
-	 * <code>SnakeManager</code> and binds it to a 
-	 * new <code>ServerBridge</code> instance.
-	 * @param snake
-	 */
-	/**
 	 * Adds a snake to the list of snakes from this client application
 	 * that are currently playing in the arena.
 	 * This method automatically binds the snake
 	 *  to a port on the server with a new 
 	 * <code>ServerBridge</code> instance
-	 * @param snake - the <code>Snake</code> instance to add to the arena
+	 * @param snake the <code>Snake</code> instance to add to the arena
 	 */
 	synchronized void addSnake(Snake snake){
 		ServerBridge socket = new ServerBridge();
@@ -38,7 +36,7 @@ public class SnakeManager {
 		System.out.println(snake.toString());
 	}
 	/**
-	 * @param index - the index of the snake
+	 * @param index the index of the snake
 	 * @return the <code>Snake</code> instance at the given
 	 * index
 	 */
@@ -57,7 +55,7 @@ public class SnakeManager {
 	}
 	/**
 	 * Moves a single snake
-	 * @param index - the index of the <code>Snake</code>
+	 * @param index the index of the <code>Snake</code>
 	 * @return the <code>String</code>
 	 * representation of the number it returns
 	 * @deprecated Sockets already contain this functionality

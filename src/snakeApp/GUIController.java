@@ -14,7 +14,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-
+/**
+ * The GUI controller
+ * @author mm44928
+ *
+ */
 public class GUIController implements Initializable {
 
 	@FXML

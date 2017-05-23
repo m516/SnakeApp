@@ -5,7 +5,11 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
-
+/**
+ * The arena, populated by the server and readable to all snakes
+ * @author mm44928
+ *
+ */
 public class Arena{
 	/*
 	 * Arenas are composed of byte arrays which represent what occupies each cell in the array
@@ -66,9 +70,9 @@ public class Arena{
 	
 	/**
 	 * Sets a block
-	 * @param x - the x-coordinate of the block requested
-	 * @param y - the y-coordinate of the block requested
-	 * @param type - the type of the block to set to
+	 * @param x the x-coordinate of the block requested
+	 * @param y the y-coordinate of the block requested
+	 * @param type the type of the block to set to
 	 */
 	static void setBlock(int x, int y, byte type){
 		arena[x][y] = type;
@@ -76,8 +80,8 @@ public class Arena{
 	
 	/**
 	 * Gets a block
-	 * @param x - the x-coordinate of the block requested
-	 * @param y - the y-coordinate of the block requested
+	 * @param x the x-coordinate of the block requested
+	 * @param y the y-coordinate of the block requested
 	 * @return the block type of the cell at (x,y)
 	 */
 	public static int getBlock(int x, int y){
@@ -86,7 +90,7 @@ public class Arena{
 	
 	/**
 	 * Sets the canvas to draw on
-	 * @param newCanvas - the new canvas to draw on
+	 * @param newCanvas the new canvas to draw on
 	 */
 	static void setCanvas(Canvas newCanvas){
 		canvas = newCanvas;
@@ -130,9 +134,9 @@ public class Arena{
 
 	/**
 	 * Draws a cell of a given color
-	 * @param x - the x-coordinate of the cell
-	 * @param y - the y-coordinate of the cell
-	 * @param c - the color or Paint instance to fill the cell with
+	 * @param x the x-coordinate of the cell
+	 * @param y the y-coordinate of the cell
+	 * @param c the color or Paint instance to fill the cell with
 	 */
 	void drawCell(int x, int y, Paint c){
 		int blockWidth = (int) (canvas.getWidth()/arena.length);
@@ -144,9 +148,9 @@ public class Arena{
 	/**
 	 * Returns a constructed rectangle at a certain position in the arena. 
 	 * This method is depreciated because all of the cells are drawn directly on the Arena canvas
-	 * @param x - the x-coordinate of the cell in the arena
-	 * @param y - the y-coordinate of the cell in the arena
-	 * @param p - the color/gradient/texture of the cell
+	 * @param x the x-coordinate of the cell in the arena
+	 * @param y the y-coordinate of the cell in the arena
+	 * @param p the color/gradient/texture of the cell
 	 * @return a rectangle to be displayed on the Arena canvas
 	 */
 	@Deprecated
@@ -159,9 +163,9 @@ public class Arena{
 	}
 	/**
 	 * Parses a command of a certain type
-	 * @param commandType - the type of command
-	 * @param command - the information provided by the command
-	 * @return - true if the requested operation is successful.
+	 * @param commandType the type of command
+	 * @param command the information provided by the command
+	 * @return true if the requested operation is successful.
 	 */
 	public synchronized static boolean retrieveCommand(int commandType, Integer[] command){
 		try{
@@ -190,8 +194,8 @@ public class Arena{
 	
 	/**
 	 * Returns the color of the snake with the given ID
-	 * @param snakeNumber - the ID of the snake
-	 * @return - a color specific to the snake
+	 * @param snakeNumber the ID of the snake
+	 * @return a color specific to the snake
 	 */
 	public static Color getSnakeColor(int snakeNumber){
 		switch(snakeNumber){
@@ -226,9 +230,10 @@ public class Arena{
 	}
 	
 	/**
+	 * Sets the background of the arena
 	 * @param bkg the color to set the background color to
 	 */
-	public static void setBkg(Color bkg) {
+	static void setBkg(Color bkg) {
 		Arena.bkg = bkg;
 	}
 }
