@@ -1,4 +1,4 @@
-package application;
+package snakeApp;
 import java.util.ArrayList;
 
 import javafx.beans.property.SimpleIntegerProperty;
@@ -58,7 +58,7 @@ public abstract class Snake {
 	 * <p> <i>RIGHT</i> changes the x-value of the head by +1.
 	 * @return the direction of the snake, programmed by players
 	 */
-	abstract int move();
+	public abstract int move();
 	/** 
 	 * @return the name of the snake
 	 */

@@ -1,4 +1,4 @@
-package application;
+package snakeApp;
 
 public class Console{
 	//private static String[] lines = new String[64];

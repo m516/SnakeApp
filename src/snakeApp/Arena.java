@@ -1,4 +1,4 @@
-package application;
+package snakeApp;
 import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;

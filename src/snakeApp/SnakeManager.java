@@ -1,4 +1,4 @@
-package application;
+package snakeApp;
 
 import java.util.ArrayList;
 

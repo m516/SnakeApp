@@ -1,4 +1,4 @@
-package application;
+package snakeApp;
 
 public class AppManager{
 	//private static AppManager currentAppManager;

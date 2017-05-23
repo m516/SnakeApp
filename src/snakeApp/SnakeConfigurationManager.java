@@ -1,7 +1,7 @@
 /**
  * 
  */
-package application;
+package snakeApp;
 
 /**
  * An interface that allows users to add snakes to
