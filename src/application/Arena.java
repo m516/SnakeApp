@@ -26,15 +26,23 @@ public class Arena{
 	 */
 	private static volatile byte[][] arena;
 	private static int xSize, ySize;
-	public static Arena instance = new Arena();
+	private static Arena instance = new Arena();
 	private static GraphicsContext graphics;
 	private static Color bkg;
 	private static Canvas canvas;
 	private Arena(){
 	}
+	/**
+	 * 
+	 * @return the width of the arena in cells
+	 */
 	public static int getXSize() {
 		return xSize;
 	}
+	/**
+	 * 
+	 * @return the height of the arena in cells
+	 */
 	public static int getYSize() {
 		return ySize;
 	}
@@ -55,17 +63,39 @@ public class Arena{
 		System.out.print("x-size: " + xSize);
 		System.out.println(" and y-size: " + ySize + ".");
 	}
+	
+	/**
+	 * Sets a block
+	 * @param x - the x-coordinate of the block requested
+	 * @param y - the y-coordinate of the block requested
+	 * @param type - the type of the block to set to
+	 */
 	static void setBlock(int x, int y, byte type){
 		arena[x][y] = type;
 	}
+	
+	/**
+	 * Gets a block
+	 * @param x - the x-coordinate of the block requested
+	 * @param y - the y-coordinate of the block requested
+	 * @return the block type of the cell at (x,y)
+	 */
 	public static int getBlock(int x, int y){
 		return arena[x][y];
 	}
+	
+	/**
+	 * Sets the canvas to draw on
+	 * @param newCanvas - the new canvas to draw on
+	 */
 	static void setCanvas(Canvas newCanvas){
 		canvas = newCanvas;
 		graphics = canvas.getGraphicsContext2D();
 	}
 
+	/**
+	 * Repaints the arena on the application
+	 */
 	public synchronized void repaint(){
 		Platform.runLater(() -> {
 			graphics.setFill(bkg);
@@ -98,6 +128,12 @@ public class Arena{
 		});
 	}
 
+	/**
+	 * Draws a cell of a given color
+	 * @param x - the x-coordinate of the cell
+	 * @param y - the y-coordinate of the cell
+	 * @param c - the color or Paint instance to fill the cell with
+	 */
 	void drawCell(int x, int y, Paint c){
 		int blockWidth = (int) (canvas.getWidth()/arena.length);
 		int blockHeight = (int) (canvas.getHeight()/arena[0].length);
@@ -121,6 +157,12 @@ public class Arena{
 		r.setFill(p);
 		return r;
 	}
+	/**
+	 * Parses a command of a certain type
+	 * @param commandType - the type of command
+	 * @param command - the information provided by the command
+	 * @return - true if the requested operation is successful.
+	 */
 	public synchronized static boolean retrieveCommand(int commandType, Integer[] command){
 		try{
 			switch(commandType){
@@ -146,6 +188,11 @@ public class Arena{
 		return true;
 	}
 	
+	/**
+	 * Returns the color of the snake with the given ID
+	 * @param snakeNumber - the ID of the snake
+	 * @return - a color specific to the snake
+	 */
 	public static Color getSnakeColor(int snakeNumber){
 		switch(snakeNumber){
 		case 0: return Color.BLUE; 
@@ -168,8 +215,6 @@ public class Arena{
 		case 17: return Color.YELLOWGREEN; 
 		default:
 			return Color.hsb(((double)snakeNumber)*11%1, 0.5, 1.0);
-			
-		
 		}
 	}
 	
