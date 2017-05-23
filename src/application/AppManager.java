@@ -10,12 +10,12 @@ public class AppManager{
 		//Initialize and configure the snake.
 		currentSnakeManager = new SnakeManager();
 		System.out.println("AppManager Initialized!");
+		//Launch GUI
+		GUI.run();
 	}
 	public static void main(String[] args) {
 		//currentAppManager = new AppManager();
 		AppManager.init();
-		//Launch GUI
-		GUI.run();
 	}
 	/**
 	 * @return the current SnakeManager
